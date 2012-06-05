@@ -18,7 +18,6 @@ $(document).ready(function(){
   //=======================================================================================
 
   function handleFileSelect(evt) {
-    console.log(evt.target);
   	if (evt.target.id == 'fileButton') {
   		var files = evt.target.files; // FileList object
   	}
@@ -42,8 +41,29 @@ $(document).ready(function(){
       return;
     }
 
-    // Sends file to be converted into xsl
-    $('#transformResult').xslt(files[0], "_files/getSteps.xsl");
+    var thisfile  = files[0];
+    // oFReader = new FileReader();
+
+    // console.log(oFReader);
+    
+    // oFReader.onload = (function(thisfile) {
+    //   return function(e) {
+    //       console.log(e);
+    //       console.log('callback');
+    //       alert('im here');
+    //   }
+    // })(thisfile);
+
+    console.log(thisfile);
+
+    // oFReader.readAsDataURL(thisfile);
+    //$('#transformResult').xslt(theFile, "_files/getSteps.xsl");
+
+    var reader = new FileReader();  
+    reader.onload = function (evt) {  
+          console.log(evt.target.result);  
+    }  
+    reader.readAsText(thisfile);
   }
 
   function handleDragOver(evt) {
