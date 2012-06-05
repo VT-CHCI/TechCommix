@@ -1,10 +1,12 @@
-/* the humans responsible & colophon */
+/* the humans responsible & colophon  */
 /* humanstxt.org */
 
 
 /* TEAM */
-  <your title>: <your name>
-  Site:
+  Developer: Michael Stewart
+  Developer: Siroberto Scerbo
+  Team Lead: Manuel Perez-Quinones
+  Site: 
   Twitter:
   Location:
 
