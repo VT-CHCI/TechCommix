@@ -1,41 +1,49 @@
 /* Author:
 
 */
+$(document).ready(function(){
+  // Check for the various File API support.
+  if (window.File && window.FileReader && window.FileList && window.Blob) {
+    // Great success! All the File APIs are supported.
+  } else {
+    alert('The File APIs are not fully supported in this browser.');
+  }
 
-// Check for the various File API support.
-if (window.File && window.FileReader && window.FileList && window.Blob) {
-  // Great success! All the File APIs are supported.
-} else {
-  alert('The File APIs are not fully supported in this browser.');
-}
+  //=======================================================================================
+  //
+  // Modified file handler example (http://www.html5rocks.com/en/tutorials/file/dndfiles/) 
+  // for file reading and selection. Extracting steps from dita using 
+  // (http://johannburkard.de/software/xsltjs/).
+  //
+  //=======================================================================================
 
-//=======================================================================================
-//
-// File handler example (http://www.html5rocks.com/en/tutorials/file/dndfiles/) for 
-// drag and drop 
-//
-//=======================================================================================
-
-function handleFileSelect(evt) {
-		if (evt.target.id == 'files') {
-			var files = evt.target.files; // FileList object
-		}
-		else {   
-			evt.stopPropagation();
+  function handleFileSelect(evt) {
+    console.log(evt.target);
+  	if (evt.target.id == 'fileButton') {
+  		var files = evt.target.files; // FileList object
+  	}
+  	else {   
+  		evt.stopPropagation();
     	evt.preventDefault();
 
     	var files = evt.dataTransfer.files; // FileList object.
-		}
 
-    // files is a FileList of File objects. List some properties.
-    var output = [];
-    for (var i = 0, f; f = files[i]; i++) {
-      output.push('<li><strong>', escape(f.name), '</strong> (', f.type || 'n/a', ') - ',
-                  f.size, ' bytes, last modified: ',
-                  f.lastModifiedDate ? f.lastModifiedDate.toLocaleDateString() : 'n/a',
-                  '</li>');
+      // Checks for only one file was dropped
+      if (files.length > 1) {
+        alert('Please choose only one file.');
+        return;
+      }
+  	}
+
+    // Checks extension of file 
+    var extension = files[0].name.substr( (files[0].name.lastIndexOf('.') +1) );
+    if (extension != 'xml') {
+      alert('Please select a valid dita filetype (.xml)');
+      return;
     }
-    document.getElementById('list').innerHTML = '<ul>' + output.join('') + '</ul>';
+
+    // Sends file to be converted into xsl
+    $('#transformResult').xslt(files[0], "_files/getSteps.xsl");
   }
 
   function handleDragOver(evt) {
@@ -44,14 +52,28 @@ function handleFileSelect(evt) {
     evt.dataTransfer.dropEffect = 'copy'; // Explicitly show this is a copy.
   }
 
-  // Setup the dnd listeners.
-  var dropZone = document.getElementById('drop_zone');
-  dropZone.addEventListener('dragover', handleDragOver, false);
-  dropZone.addEventListener('drop', handleFileSelect, false);
+  // Prevent drop outside dnd
+  $(document).bind('drop dragover', function(event) { 
+    event.preventDefault(); 
+    event.dataTransfer.dropEffect = 'none';
+  });
 
- window.addEventListener("drop",function(e){
-  e = e || event;
-  e.preventDefault();
-},false);
+  // Originally solved by Tim Branyen in his drop file plugin
+  // http://dev.aboutnerd.com/jQuery.dropFile/jquery.dropFile.js
+  // found by way of https://gist.github.com/748534
+  jQuery.event.props.push('dataTransfer');
 
-  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+  //Setup listeners
+  $('#dropZone').bind('dragover', handleDragOver);
+  $('#dropZone').bind('drop', handleFileSelect);
+  $('#fileButton').change(handleFileSelect);
+});
+
+  //=======================================================================================
+  //
+  // This handles the .xml to .xsl conversion (http://johannburkard.de/software/xsltjs/) and
+  // formatting.
+  //
+  //=======================================================================================
+
+  
