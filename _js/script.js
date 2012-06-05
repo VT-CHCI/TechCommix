@@ -41,29 +41,12 @@ $(document).ready(function(){
       return;
     }
 
-    var thisfile  = files[0];
-    // oFReader = new FileReader();
+    var reader = new FileReader();
 
-    // console.log(oFReader);
-    
-    // oFReader.onload = (function(thisfile) {
-    //   return function(e) {
-    //       console.log(e);
-    //       console.log('callback');
-    //       alert('im here');
-    //   }
-    // })(thisfile);
-
-    console.log(thisfile);
-
-    // oFReader.readAsDataURL(thisfile);
-    //$('#transformResult').xslt(theFile, "_files/getSteps.xsl");
-
-    var reader = new FileReader();  
-    reader.onload = function (evt) {  
-          console.log(evt.target.result);  
+    reader.onload = function (evt) {
+      $('#transformResult').xslt({xml: evt.target.result, xslUrl: '_files/getSteps.xsl'});
     }  
-    reader.readAsText(thisfile);
+    reader.readAsText(files[0]);
   }
 
   function handleDragOver(evt) {
