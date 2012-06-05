@@ -2,6 +2,7 @@
 
 */
 $(document).ready(function(){
+  
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
@@ -41,10 +42,14 @@ $(document).ready(function(){
       return;
     }
 
-    var reader = new FileReader();
+    var reader = new FileReader();  
 
-    reader.onload = function (evt) {
-      $('#transformResult').xslt({xml: evt.target.result, xslUrl: '_files/getSteps.xsl'});
+    reader.onload = function (evt) {  
+      console.log(evt.target.result);  
+      $('#transformResult').getTransform(
+      '_files/getSteps.xsl',
+      evt.target.result
+      );
     }  
     reader.readAsText(files[0]);
   }
