@@ -1,15 +1,47 @@
-#dita {
-  
-}
+/*
+going with a width of 1280
+*/
 
-#steps {
-  
+body {
+  min-width: 980px;      /* 2x LC width + RC width */
 }
-
+#main {
+  padding-left: 320px;   /* LC width */
+  padding-right: 170px;  /* RC width */
+}
+#main .column {
+  position: relative;
+  float: left;
+}
 #workspace {
-  
+  width: 100%;
+}
+#dita-file {
+  width: 320px;          /* LC width */
+  right: 320px;          /* LC width */
+  margin-left: -100%;
+}
+#output {
+  width: 170px;          /* RC width */
+  margin-right: -170px;  /* RC width */
+}
+#footer {
+  clear: both;
+}
+/*** IE6 Fix ***/
+* html #dita-file {
+  left: 170px;           /* RC width */
 }
 
-#output {
-  
+.left-column {
+  position: relative;
+  float: left;
+}
+
+#original-dita {
+  width: 150px;
+}
+
+#extracted-dita {
+  width: 170px;
 }
