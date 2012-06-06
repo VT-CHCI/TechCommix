@@ -36,34 +36,60 @@
        chromium.org/developers/how-tos/chrome-frame-getting-started -->
   <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
   <header>
-  	<div id="main" role="main">
+    <h1>Create your comic</h1>
+    <p>This work is a project of the <a href="http://hci.cs.vt.edu" title="VT CHCI">Virginia Tech Center for Human-Computer Interaction</a>.</p>
+  </header>
+	<div id="main" role="main">
 
-  		<section id="workspace" class="column">
-  			<h1>This is the main content.</h1>
-  			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla.</p>
-  			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla.</p>
-  		</section>
+		<section id="workspace" class="column">
+			<section id="workspace-editor">
+			  <h1>Editor</h1>
+        <!-- If we don't want to require Internet connection, we can pull this from local -->
+        <iframe src="http://svg-edit.googlecode.com/svn/tags/stable/editor/svg-editor.html" width="750" height="600">
+          Please use a browser that supports iframe, or enable iframe.
+        </iframe>
+			</section>
+			<section id="workspace-gallery">
+			  <div id="tabs">
+        	<ul>
+        		<li><a href="#tabs-1">Panels</a></li>
+        		<li><a href="#tabs-2">Characters</a></li>
+        		<li><a href="#tabs-3">Objects</a></li>
+        	</ul>
+        	<div id="tabs-1">
+        		<p>Panels. and what not in here.</p>
+        	</div>
+        	<div id="tabs-2">
+        		<p>Characters. and what not in here.</p>
+        	</div>
+        	<div id="tabs-3">
+        		<p>Objects. and what not in here.</p>
+        	</div>
+        </div>
+			</section>
+		</section>
 
-  		<section id="dita-file" class="column">
-  			<section id="original-dita" class="left-column">
-  			  <h1>Original DITA</h1>
-          <input type="file" id="fileButton" name="ditaHandler"/>
-          <div id="dropZone">Drop files here</div>
-          <output id="transformResult"></output>
-  			</section>
-  			<section id="extracted-dita" class="left-column">
-  			  <h1>Extracted Steps</h1>
-  			</section>
-  		</section>
+		<section id="dita-file" class="column">
+			<section id="original-dita" class="left-column">
+			  <h1>Original DITA</h1>
+        <input type="file" id="fileButton" name="ditaHandler" size="10"/>
+        <div id="dropZone">Drop files here</div>
+        
+			</section>
+			<section id="extracted-dita" class="left-column">
+			  <h1>Extracted Steps</h1>
+			  <output id="transformResult"></output>
+			</section>
+		</section>
 
-  		<section id="output" class="column">
-  			<h2>This is the right sidebar.</h2>
-  			<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla.</p>
-  		</section>
+		<section id="output" class="column">
+			<h2>This is the output.</h2>
+			<p>This is where we will have something... CML? html? as the output of your work.</p>
+		</section>
 
-  	</div>
+	</div>
 
-  	<div id="footer">This is the footer.</div>
+	<div id="footer">This is the footer.</div>
 
   <!-- JavaScript at the bottom for fast page loading -->
   <script type="text/javascript" src="_js/libs/sarissa.js"></script>

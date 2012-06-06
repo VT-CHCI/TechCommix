@@ -3,7 +3,8 @@ going with a width of 1280
 */
 
 body {
-  min-width: 980px;      /* 2x LC width + RC width */
+  min-width: 1240px;      /* 2x LC width + RC width */
+  min-height: 900px;
 }
 #main {
   padding-left: 320px;   /* LC width */
@@ -55,4 +56,8 @@ body {
 
 #extracted-dita {
   width: 170px;
+}
+
+#fileButton {
+  width: 100px;
 }
