@@ -39,16 +39,7 @@ body {
   left: 170px;           /* RC width */
 }
 
-#dropZone {
-	border: 2px dashed #BBB;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-radius: 5px;
-	padding: 25px;
-	text-align: center;
-	font: 20pt bold 'Vollkorn';
-	color: #BBB;
-}
+
 
 .left-column {
   position: relative;
@@ -57,14 +48,74 @@ body {
   min-height: 650px;
 }
 
+
+/* 
+----------Original Dita section----------
+*/
+
 #original-dita {
-  width: 150px;
+  width: 130px;
   background-color: #ccc;
+  padding: 10px;
+  text-align: center;
 }
 
+.file-wrapper {
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  position: relative;
+}
+
+.file-wrapper .addFileButton {
+  background: #79130e;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 5px 18px;
+  text-transform: uppercase;
+  color: white;
+}
+
+.file-wrapper input {
+  cursor: pointer;
+  height: 100%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  filter: alpha(opacity=1);
+  -moz-opacity: 0.01;
+  opacity: 0.01;
+  font-size: 100px;
+}
+
+#dropZone {
+	border: 2px dashed #777;
+  border-radius: 5px 5px 5px 5px;
+  bottom: 12px;
+  color: #777;
+  padding: 25px;
+  position: absolute;
+  top: 183px;
+  width: 76px;
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* 
+----------Extracted Steps section----------
+*/
+
 #extracted-dita {
-  width: 170px;
+  width: 150px;
   background-color: #bbb;
+  padding: 10px;
+  text-align: center;
 }
 
 header {

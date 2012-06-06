@@ -1,8 +1,34 @@
 /* Author:
 
 */
+
+//=======================================================================================
+//
+// Function to make all columns heights equal used from
+// (http://nopeople.com/CSS%20tips/jQuery_equal_columns/index.html)
+//
+//=======================================================================================
+
+function equalHeight(group) {
+  tallest = 0;
+  group.each(function() {
+    thisHeight = $(this).height();
+    if(thisHeight > tallest) {
+      tallest = thisHeight;
+    }
+  });
+  group.height(tallest);
+}
+
 $(document).ready(function(){
   
+  // Set columns to equal heights
+  equalHeight($('.column'));
+
+  $('.left-column').each(function() {
+    $(this).height($('#dita-file').height()-$(this).css("padding-top").replace("px", "")-$(this).css("padding-bottom").replace("px", ""));
+  });
+
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
@@ -85,6 +111,7 @@ $(document).ready(function(){
   console.log("about to tab");
   $("#tabs").tabs();
   console.log("tabbed");
+
 });
 
   
