@@ -45,11 +45,15 @@ $(document).ready(function(){
     var reader = new FileReader();  
 
     reader.onload = function (evt) {  
-      console.log(evt.target.result);  
       $('#transformResult').getTransform(
       '_files/getSteps.xsl',
       evt.target.result
       );
+      var steps = $($('#transformResult').children()[0]).children();
+      $("#transformResult").text("");
+      console.log("steps:");
+      console.log(steps);
+      $("#transformResult").append(steps);
     }  
     reader.readAsText(files[0]);
   }
@@ -75,13 +79,12 @@ $(document).ready(function(){
   $('#dropZone').bind('dragover', handleDragOver);
   $('#dropZone').bind('drop', handleFileSelect);
   $('#fileButton').change(handleFileSelect);
+  
+  
+  //make some tabs
+  console.log("about to tab");
+  $("#tabs").tabs();
+  console.log("tabbed");
 });
-
-  //=======================================================================================
-  //
-  // This handles the .xml to .xsl conversion (http://johannburkard.de/software/xsltjs/) and
-  // formatting.
-  //
-  //=======================================================================================
 
   

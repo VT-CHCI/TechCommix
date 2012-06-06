@@ -3,7 +3,8 @@ going with a width of 1280
 */
 
 body {
-  min-width: 980px;      /* 2x LC width + RC width */
+  min-width: 1240px;      /* 2x LC width + RC width */
+  min-height: 900px;
 }
 #main {
   padding-left: 320px;   /* LC width */
@@ -15,15 +16,20 @@ body {
 }
 #workspace {
   width: 100%;
+  background-color: #999;
 }
 #dita-file {
   width: 320px;          /* LC width */
   right: 320px;          /* LC width */
   margin-left: -100%;
+  min-height: 650px;
+  background-color: #888;
 }
 #output {
   width: 170px;          /* RC width */
   margin-right: -170px;  /* RC width */
+  background-color: #aaa;
+  min-height: 650px;
 }
 #footer {
   clear: both;
@@ -47,12 +53,36 @@ body {
 .left-column {
   position: relative;
   float: left;
+  background-color: #ddd;
+  min-height: 650px;
 }
 
 #original-dita {
   width: 150px;
+  background-color: #ccc;
 }
 
 #extracted-dita {
   width: 170px;
+  background-color: #bbb;
+}
+
+header {
+  margin: 0;
+  background-color: #eee;
+}
+
+header h1 {
+  line-height: 1;
+}
+
+footer {
+  background-color: #eee;
+}
+
+.step {
+  background-color: rgba(0,255,0,.5);
+  border:2px solid;
+  border-radius:25px;
+  padding: 1px;
 }

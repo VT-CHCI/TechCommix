@@ -53,7 +53,6 @@
 	 * @returns
 	 */
 	$.fn.getTransform = function( xsl, xml, options ){
-	  console.log("getTransform");
 		var settings = {
 			params: {},		// object of key/value pairs ... parameters to send to the XSL stylesheet
 			xpath: '',		// xpath, used to send only a portion of the XML file to the XSL stylesheet
