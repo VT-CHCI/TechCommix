@@ -16,15 +16,20 @@ body {
 }
 #workspace {
   width: 100%;
+  background-color: #999;
 }
 #dita-file {
   width: 320px;          /* LC width */
   right: 320px;          /* LC width */
   margin-left: -100%;
+  min-height: 650px;
+  background-color: #888;
 }
 #output {
   width: 170px;          /* RC width */
   margin-right: -170px;  /* RC width */
+  background-color: #aaa;
+  min-height: 650px;
 }
 #footer {
   clear: both;
@@ -48,16 +53,29 @@ body {
 .left-column {
   position: relative;
   float: left;
+  background-color: #ddd;
+  min-height: 650px;
 }
 
 #original-dita {
   width: 150px;
+  background-color: #ccc;
 }
 
 #extracted-dita {
   width: 170px;
+  background-color: #bbb;
 }
 
-#fileButton {
-  width: 100px;
+header {
+  margin: 0;
+  background-color: #eee;
+}
+
+header h1 {
+  line-height: 1;
+}
+
+footer {
+  background-color: #eee;
 }
