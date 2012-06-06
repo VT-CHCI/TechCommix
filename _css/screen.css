@@ -79,3 +79,10 @@ header h1 {
 footer {
   background-color: #eee;
 }
+
+.step {
+  background-color: rgba(0,255,0,.5);
+  border:2px solid;
+  border-radius:25px;
+  padding: 1px;
+}
