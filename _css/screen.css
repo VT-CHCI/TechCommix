@@ -58,6 +58,7 @@ body {
   background-color: #ccc;
   padding: 10px;
   text-align: center;
+  overflow: hidden;
 }
 
 .file-wrapper {

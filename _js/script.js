@@ -112,6 +112,19 @@ $(document).ready(function(){
   $("#tabs").tabs();
   console.log("tabbed");
 
+  $('#testButton').click(function() {
+    $('#original-dita').animate({
+      marginLeft: '-=100'
+    }, 5000, function() {
+      // Animation complete.
+    });
+    $('#extracted-dita').animate({
+      width: '+=100'
+    }, 5000, function() {
+      // Animation complete.
+    });
+  });
+
 });
 
   
