@@ -86,3 +86,7 @@ footer {
   border-radius:25px;
   padding: 1px;
 }
+
+#workspace-editor {
+  min-height: 800px;
+}

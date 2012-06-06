@@ -83,9 +83,7 @@ $(document).ready(function(){
   
   
   //make some tabs
-  console.log("about to tab");
   $("#tabs").tabs();
-  console.log("tabbed");
 });
 
   
