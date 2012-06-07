@@ -77,9 +77,15 @@ $(document).ready(function(){
       );
       var steps = $($('#transformResult').children()[0]).children();
       $("#transformResult").text("");
-      console.log("steps:");
-      console.log(steps);
+      //console.log("steps:");
+      //console.log(steps);
       $("#transformResult").append(steps);
+
+      steps.each(function() {
+       $(this).draggable();
+      });
+
+      hideOriginalDita();
     }  
     reader.readAsText(files[0]);
   }
@@ -112,18 +118,18 @@ $(document).ready(function(){
   $("#tabs").tabs();
   console.log("tabbed");
 
-  $('#testButton').click(function() {
+  function hideOriginalDita() {
     $('#original-dita').animate({
-      marginLeft: '-=100'
-    }, 5000, function() {
+      marginLeft: '-=150'
+    }, 1000, function() {
       // Animation complete.
     });
     $('#extracted-dita').animate({
-      width: '+=100'
-    }, 5000, function() {
+      width: '+=150'
+    }, 1000, function() {
       // Animation complete.
     });
-  });
+  };
 
 });
 
