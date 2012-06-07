@@ -37,7 +37,11 @@ $(document).ready(function(){
         .find( "p" )
         .html( "Dropped!" );
       // Put command back and highlight completed
+<<<<<<< HEAD
 
+=======
+      ui.draggable
+>>>>>>> 018516defe4c34cecebbe5b9366c654fd967783c
       // Create text object and corresponding dictionary of steps currently in the svg
     }
   });
@@ -99,6 +103,7 @@ $(document).ready(function(){
       steps.each(function() {
         $(this).draggable();
         $(this).addClass("steps-unused");
+<<<<<<< HEAD
       });
 
       $(".step.ui-draggable").hover(
@@ -112,6 +117,21 @@ $(document).ready(function(){
         $(this).addClass("step-dragged");
       });
 
+=======
+      });
+
+      $(".step.ui-draggable").hover(
+        function() {
+          $(this).addClass("step-hover");
+        },
+        function() {
+          $(this).removeClass("step-hover");
+        }
+      ).mousedown(function() {
+        $(this).addClass("step-dragged");
+      });
+
+>>>>>>> 018516defe4c34cecebbe5b9366c654fd967783c
 
       hideOriginalDita();
     }  
