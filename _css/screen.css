@@ -119,6 +119,26 @@ body {
   text-align: center;
 }
 
+.step {
+  border:2px solid;
+  border-radius:25px;
+  padding: 1px;
+}
+
+.steps-unused {
+  background-color: rgba(0,255,0,.5);
+}
+
+.step-hover {
+  cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
+  background-color: rgba(10,200,10,.8);
+}
+
+.step-dragged {
+  cursor: url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;
+  background-color: rgba(1,1,1,.5);
+}
+
 header {
   margin: 0;
   background-color: #eee;
@@ -133,12 +153,7 @@ footer {
   background-color: #eee;
 }
 
-.step {
-  background-color: rgba(0,255,0,.5);
-  border:2px solid;
-  border-radius:25px;
-  padding: 1px;
-}
+
 
 /*#workspace-editor {
   height: 650px;
