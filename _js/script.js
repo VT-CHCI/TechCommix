@@ -29,13 +29,40 @@ $(document).ready(function(){
     $(this).height($('#dita-file').height()-$(this).css("padding-top").replace("px", "")-$(this).css("padding-bottom").replace("px", ""));
   });
 
-
   $('#workarea').droppable({
     drop: function( event, ui ) {
       $( this )
         .addClass( "ui-state-highlight" )
         .find( "p" )
         .html( "Dropped!" );
+      
+      // weird constants to help position text
+      var empiricalLeft = 0;
+      var empiricalTop = 123;
+
+      //add a new text object to the canvas
+      var textId = svgCanvas.getNextId();
+      svgCanvas.addSvgElementFromJson({
+        "element": "text",
+        "curStyles": true,
+        "attr": {
+          "x": ui.draggable.position().left-$("#canvasBackground").position().left+ui.draggable.width()/2+empiricalLeft, 
+          "y": ui.draggable.position().top-$("#canvasBackground").position().top+ui.draggable.height()/2+empiricalTop,
+          "id": textId,
+          "fill": "#000000",
+          "stroke-width": 0,
+          "font-size": 24,
+          "font-family": "serif",
+          "text-anchor": "middle",
+          "xml:space": "preserve",
+          "opacity": 1
+        }
+      });      
+
+      //set the text of the new text object
+      $("#"+textId).text(ui.draggable.text());
+      $("#"+textId).text(ui.draggable.text());
+
       // Put command back and highlight completed
 
       // Create text object and corresponding dictionary of steps currently in the svg
@@ -156,6 +183,13 @@ $(document).ready(function(){
       // Animation complete.
     });
   };
+
+  // for some reason it was showing rulers sometimes on different computers, now it will always show them (or not)
+  $('#rulers').show();
+
+  //scrolls the workarea such that the 
+  var rulerOffset = $('#rulers').is(":visible") ? $("#ruler_x").height() : 0;
+  $('#workarea').scrollTop($('#workarea').scrollTop()-($('#svgcontent').attr("height")/2+rulerOffset));
 
 });
 
