@@ -29,6 +29,18 @@ $(document).ready(function(){
     $(this).height($('#dita-file').height()-$(this).css("padding-top").replace("px", "")-$(this).css("padding-bottom").replace("px", ""));
   });
 
+
+  $('#workarea').droppable({
+    drop: function( event, ui ) {
+      $( this )
+        .addClass( "ui-state-highlight" )
+        .find( "p" )
+          .html( "Dropped!" );
+      // Put command back and highlight completed
+      // Create text object and corresponding dictionary of steps currently in the svg
+    }
+  });
+
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
     // Great success! All the File APIs are supported.
@@ -98,6 +110,7 @@ $(document).ready(function(){
 
   // Prevent drop outside dnd
   $(document).bind('drop dragover', function(event) { 
+    // Add check for dropped element being a target -- #TODO
     event.preventDefault(); 
     event.dataTransfer.dropEffect = 'none';
   });
@@ -111,7 +124,6 @@ $(document).ready(function(){
   $('#dropZone').bind('dragover', handleDragOver);
   $('#dropZone').bind('drop', handleFileSelect);
   $('#fileButton').change(handleFileSelect);
-  
   
   //make some tabs
   console.log("about to tab");
