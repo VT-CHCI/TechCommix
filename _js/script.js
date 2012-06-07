@@ -35,11 +35,16 @@ $(document).ready(function(){
       $( this )
         .addClass( "ui-state-highlight" )
         .find( "p" )
-          .html( "Dropped!" );
+        .html( "Dropped!" );
       // Put command back and highlight completed
+      ui.draggable
       // Create text object and corresponding dictionary of steps currently in the svg
     }
   });
+
+  
+
+
 
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -89,13 +94,24 @@ $(document).ready(function(){
       );
       var steps = $($('#transformResult').children()[0]).children();
       $("#transformResult").text("");
-      //console.log("steps:");
-      //console.log(steps);
       $("#transformResult").append(steps);
 
       steps.each(function() {
-       $(this).draggable();
+        $(this).draggable();
+        $(this).addClass("steps-unused");
       });
+
+      $(".step.ui-draggable").hover(
+        function() {
+          $(this).addClass("step-hover");
+        },
+        function() {
+          $(this).removeClass("step-hover");
+        }
+      ).mousedown(function() {
+        $(this).addClass("step-dragged");
+      });
+
 
       hideOriginalDita();
     }  
@@ -110,9 +126,10 @@ $(document).ready(function(){
 
   // Prevent drop outside dnd
   $(document).bind('drop dragover', function(event) { 
-    // Add check for dropped element being a target -- #TODO
-    event.preventDefault(); 
-    event.dataTransfer.dropEffect = 'none';
+    if (!$(event.target).hasClass("ui-droppable")) {
+      event.preventDefault(); 
+      event.dataTransfer.dropEffect = 'none';
+    } 
   });
 
   // Originally solved by Tim Branyen in his drop file plugin
@@ -126,9 +143,7 @@ $(document).ready(function(){
   $('#fileButton').change(handleFileSelect);
   
   //make some tabs
-  console.log("about to tab");
   $("#tabs").tabs();
-  console.log("tabbed");
 
   function hideOriginalDita() {
     $('#original-dita').animate({
