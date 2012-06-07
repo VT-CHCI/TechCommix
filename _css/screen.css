@@ -128,6 +128,7 @@ header h1 {
 }
 
 footer {
+  
   background-color: #eee;
 }
 
@@ -136,4 +137,17 @@ footer {
   border:2px solid;
   border-radius:25px;
   padding: 1px;
+}
+
+/*#workspace-editor {
+  height: 650px;
+}*/
+
+#workspace-gallery {
+  position: absolute;
+  top: 670px;
+  left: 0px;
+  right: 0px;
+
+  /*margin-top: 650px;*/
 }
