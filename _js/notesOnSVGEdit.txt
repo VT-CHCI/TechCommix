@@ -1,0 +1,37 @@
+svgcanvas 2354 mousedown
+svgcanvas 3113 mouseup
+
+case "text":
+				keep = true;
+				selectOnly([element]);
+				textActions.st
+
+//TGM REMOVE
+svgcanvas 3789 toEditMode
+
+can click text button and the svg <text> elem is not yet created
+
+it DNE on mouseDown!
+<-- ? CREATED at svgcanvas 2658
+it IS created BEFORE mouseup 3113.
+svgCanvas.addSvgElementFromJson({
+	"element": "text",
+	"curStyles": true,
+	"attr": {
+		"x": 200,
+		"y": 200,
+		"id": svgCanvas.getNextId(),
+		"fill": "#000000",
+		"stroke-width": 0,
+		"font-size": 24,
+		"font-family": "serif",
+		"text-anchor": "middle",
+		"xml:space": "preserve",
+		"opacity": 1
+	}
+});
+
+
+<text id="svg_1" fill="#000000" stroke="#000000" stroke-width="0" style="pointer-events:inherit" x="112" y="369.73333740234375" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" fill-opacity="1" stroke-opacity="1">
+
+        #svgcanvas svg *{cursor:move;pointer-events:all}, #svgcanvas svg{cursor:default}                Layer 1        
