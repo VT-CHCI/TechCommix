@@ -134,12 +134,14 @@ body {
 }
 
 .step-hover {
-  cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
+  cursor: grab;
+  cursor: -moz-grab;
   background-color: rgba(10,200,10,.8);
 }
 
 .step-dragged {
-  cursor: url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;
+  cursor: grabbing;
+  cursor: -moz-grabbing;
   background-color: rgba(1,1,1,.5);
 }
 
