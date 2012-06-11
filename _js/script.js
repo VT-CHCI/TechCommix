@@ -64,14 +64,13 @@ $(document).ready(function(){
       $("#"+textId).text(ui.draggable.text());
 
       // Put command back and highlight completed
+      ui.draggable.addClass("steps-used");
+      ui.draggable.removeClass("steps-unused");
 
-      // Create text object and corresponding dictionary of steps currently in the svg
-    }
+      // Create corresponding dictionary of steps currently in the svg
+    }, 
+
   });
-
-  
-
-
 
   // Check for the various File API support.
   if (window.File && window.FileReader && window.FileList && window.Blob) {
@@ -124,7 +123,12 @@ $(document).ready(function(){
       $("#transformResult").append(steps);
 
       steps.each(function() {
-        $(this).draggable();
+        $(this).draggable({
+          revert: true,
+          stop: function(event, ui) {
+            $(this).removeClass("step-dragged");
+          }
+        });
         $(this).addClass("steps-unused");
       });
 

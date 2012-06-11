@@ -129,6 +129,10 @@ body {
   background-color: rgba(0,255,0,.5);
 }
 
+.steps-used {
+  background-color: rgba(204,0,51,.5);
+}
+
 .step-hover {
   cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
   background-color: rgba(10,200,10,.8);
