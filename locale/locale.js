@@ -288,7 +288,7 @@ var svgEditor = (function($, Editor) {
 					return;
 			}
 			
-			console.log('Lang: ' + lang_param);
+			// console.log('Lang: ' + lang_param);
 			
 			// Set to English if language is not in list of good langs
 			if($.inArray(lang_param, good_langs) == -1 && lang_param !== 'test') {
