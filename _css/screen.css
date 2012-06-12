@@ -134,18 +134,22 @@ body {
 }
 
 .steps-unused.step-hover {
-  cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
   background-color: rgba(10, 200, 10, .8);
 }
 
 .steps-used.step-hover {
-  cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
   background-color: rgba(200, 10, 10, .8);
 }
 
+.step-hover {
+  cursor: grab;
+  cursor: -moz-grab;
+}
+
 .step-dragged {
-  cursor: url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;
-  background-color: rgba(1, 1, 1, .5);
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  background-color: rgba(1, 1, 1, .5) !important;
 }
 
 header {

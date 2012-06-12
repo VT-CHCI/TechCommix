@@ -98,6 +98,55 @@ $(document).ready(function(){
   //
   //=======================================================================================
 
+  function highlightCorrespondingElems(stepId) {
+    // console.log(stepId);
+    if (stepsInUse && stepsInUse[stepId]) {
+      for (var i = 0; i < stepsInUse[stepId].length; i++) {
+        var svgElem = $("#"+stepsInUse[stepId][i]);
+        svgElem.attr("orig-fill", svgElem.attr("fill"));
+        var newColor = oppositeClr(svgElem.attr("orig-fill"));        
+        svgElem.attr("fill", "rgb("+newColor[0]+","+newColor[1]+","+newColor[2]+")");
+      }
+    }
+  }
+  
+
+  function oppositeClr(hexStr) {
+    return [255,0,0];
+    var hex = "";
+    if (hexStr.length == 7) {
+      hex = parseInt(hexStr.substring(1), 16);
+    }
+    else {
+      var tmp = "" +hexStr[1]+hexStr[1]+hexStr[2]+hexStr[2]+hexStr[3]+hexStr[3]
+      hex = parseInt(tmp.substring(1), 16);
+    }
+    var r = (hex & 0xff0000) >> 16;
+    var g = (hex & 0x00ff00) >> 8;
+    var b = hex & 0x0000ff;
+    var rgbCurrent = [r, g, b];
+    var oppositeColor = [];
+    if (rgbCurrent[0] != 0 || rgbCurrent[0] != 0 || rgbCurrent[0] != 0) {
+      oppositeColor = [255-rgbCurrent[0], 255-rgbCurrent[1], 255-rgbCurrent[2]];
+    }
+    else {
+      oppositeColor = [255,0,0];
+    }
+    return oppositeColor;
+  }
+
+
+
+  function unhighlightCorrespondingElems(stepId) {
+    if (stepsInUse && stepsInUse[stepId]) {
+      for (var i = 0; i < stepsInUse[stepId].length; i++) {
+        var svgElem = $("#"+stepsInUse[stepId][i]);
+        svgElem.attr("fill", svgElem.attr("orig-fill"));
+        svgElem.removeAttr("orig-fill");
+      }
+    }
+  }
+
   function handleFileSelect(evt) {
   	if (evt.target.id == 'fileButton') {
   		var files = evt.target.files; // FileList object
@@ -146,9 +195,15 @@ $(document).ready(function(){
       $(".step.ui-draggable").hover(
         function() {
           $(this).addClass("step-hover");
+          if ($(this).hasClass("steps-used")) {
+            highlightCorrespondingElems($(this).attr("id"));
+          }
         },
         function() {
           $(this).removeClass("step-hover");
+          if ($(this).hasClass("steps-used")) {
+            unhighlightCorrespondingElems($(this).attr("id"));
+          }
         }
       ).mousedown(function() {
         $(this).addClass("step-dragged");
