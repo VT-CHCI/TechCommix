@@ -79,8 +79,15 @@ $(document).ready(function(){
       } else {
         stepsInUse[ui.draggable.attr("id")] = [textId];
       }
-    }, 
 
+      $("#"+textId).hover(function() {
+        $("#"+ui.draggable.attr("id")).addClass("highlight");
+      },
+      function() {
+        $("#"+ui.draggable.attr("id")).removeClass("highlight");
+      });
+
+    }
   });
 
   // Check for the various File API support.
@@ -112,27 +119,27 @@ $(document).ready(function(){
   
 
   function oppositeClr(hexStr) {
-    return [255,0,0];
-    var hex = "";
-    if (hexStr.length == 7) {
-      hex = parseInt(hexStr.substring(1), 16);
-    }
-    else {
-      var tmp = "" +hexStr[1]+hexStr[1]+hexStr[2]+hexStr[2]+hexStr[3]+hexStr[3]
-      hex = parseInt(tmp.substring(1), 16);
-    }
-    var r = (hex & 0xff0000) >> 16;
-    var g = (hex & 0x00ff00) >> 8;
-    var b = hex & 0x0000ff;
-    var rgbCurrent = [r, g, b];
-    var oppositeColor = [];
-    if (rgbCurrent[0] != 0 || rgbCurrent[0] != 0 || rgbCurrent[0] != 0) {
-      oppositeColor = [255-rgbCurrent[0], 255-rgbCurrent[1], 255-rgbCurrent[2]];
-    }
-    else {
-      oppositeColor = [255,0,0];
-    }
-    return oppositeColor;
+    return [255,0,0]; //turn out it looks terrible to use the opposite color.
+    // var hex = "";
+    // if (hexStr.length == 7) {
+    //   hex = parseInt(hexStr.substring(1), 16);
+    // }
+    // else {
+    //   var tmp = "" +hexStr[1]+hexStr[1]+hexStr[2]+hexStr[2]+hexStr[3]+hexStr[3]
+    //   hex = parseInt(tmp.substring(1), 16);
+    // }
+    // var r = (hex & 0xff0000) >> 16;
+    // var g = (hex & 0x00ff00) >> 8;
+    // var b = hex & 0x0000ff;
+    // var rgbCurrent = [r, g, b];
+    // var oppositeColor = [];
+    // if (rgbCurrent[0] != 0 || rgbCurrent[0] != 0 || rgbCurrent[0] != 0) {
+    //   oppositeColor = [255-rgbCurrent[0], 255-rgbCurrent[1], 255-rgbCurrent[2]];
+    // }
+    // else {
+    //   oppositeColor = [255,0,0];
+    // }
+    // return oppositeColor;
   }
 
 
