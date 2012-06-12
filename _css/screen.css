@@ -126,21 +126,26 @@ body {
 }
 
 .steps-unused {
-  background-color: rgba(0,255,0,.5);
+  background-color: rgba(0, 255, 0, .5);
 }
 
 .steps-used {
-  background-color: rgba(204,0,51,.5);
+  background-color: rgba(204, 0, 51, .5);
 }
 
-.step-hover {
+.steps-unused.step-hover {
   cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
-  background-color: rgba(10,200,10,.8);
+  background-color: rgba(10, 200, 10, .8);
+}
+
+.steps-used.step-hover {
+  cursor: url(https://mail.google.com/mail/images/2/openhand.cur), default !important;
+  background-color: rgba(200, 10, 10, .8);
 }
 
 .step-dragged {
   cursor: url(https://mail.google.com/mail/images/2/closedhand.cur), default !important;
-  background-color: rgba(1,1,1,.5);
+  background-color: rgba(1, 1, 1, .5);
 }
 
 header {

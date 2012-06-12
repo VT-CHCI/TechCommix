@@ -20,6 +20,8 @@ function equalHeight(group) {
   group.height(tallest);
 }
 
+var stepsInUse = {};
+
 $(document).ready(function(){
   
   // Set columns to equal heights
@@ -42,6 +44,7 @@ $(document).ready(function(){
 
       //add a new text object to the canvas
       var textId = svgCanvas.getNextId();
+
       svgCanvas.addSvgElementFromJson({
         "element": "text",
         "curStyles": true,
@@ -55,7 +58,8 @@ $(document).ready(function(){
           "font-family": "serif",
           "text-anchor": "middle",
           "xml:space": "preserve",
-          "opacity": 1
+          "opacity": 1,
+          "step-id": ui.draggable.attr("id")
         }
       });      
 
@@ -67,7 +71,14 @@ $(document).ready(function(){
       ui.draggable.addClass("steps-used");
       ui.draggable.removeClass("steps-unused");
 
+
       // Create corresponding dictionary of steps currently in the svg
+      if(stepsInUse[ui.draggable.attr("id")])
+      {
+        stepsInUse[ui.draggable.attr("id")].push(textId);
+      } else {
+        stepsInUse[ui.draggable.attr("id")] = [textId];
+      }
     }, 
 
   });
@@ -194,6 +205,20 @@ $(document).ready(function(){
   //scrolls the workarea such that the 
   var rulerOffset = $('#rulers').is(":visible") ? $("#ruler_x").height() : 0;
   $('#workarea').scrollTop($('#workarea').scrollTop()-($('#svgcontent').attr("height")/2+rulerOffset));
+  $('#workarea').bind('textDeleted', function(event, args){
+    for (var i = 0; i < args["ids"].length; i++) {
+      for (var stepId in args["ids"][i]) {
+        if (stepsInUse[stepId]) {
+          var j = stepsInUse[stepId].indexOf(args["ids"][i][stepId]);
+          stepsInUse[stepId].splice(j, j+1);
+          if (stepsInUse[stepId].length == 0) {
+            delete stepsInUse[stepId];
+            $("#"+stepId).removeClass("steps-used").addClass("steps-unused");
+          }
+        }
+      }
+    }
+  });
 
 });
 

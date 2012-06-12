@@ -7874,6 +7874,19 @@ var changeSelectedAttribute = this.changeSelectedAttribute = function(attr, val,
 this.deleteSelectedElements = function() {
 	var batchCmd = new BatchCommand("Delete Elements");
 	var len = selectedElements.length;
+	
+	var deleteThese = []
+	for (var i = 0; i < len; i++) {
+		if (selectedElements[i].tagName == "text") {
+			var idPair = {};
+			idPair[selectedElements[i].getAttribute("step-id")] = selectedElements[i].id;
+			deleteThese.push(idPair);
+		}
+	}
+	if (deleteThese.length > 0) {
+		$('#workarea').trigger('textDeleted', {"ids":deleteThese});
+	}
+
 	var selectedCopy = []; //selectedElements is being deleted
 	for (var i = 0; i < len; ++i) {
 		var selected = selectedElements[i];
