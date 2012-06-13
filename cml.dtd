@@ -1,0 +1,58 @@
+<!ELEMENT action ( #PCDATA ) >
+
+<!ELEMENT bang EMPTY >
+
+<!ELEMENT character EMPTY >
+<!ATTLIST character id NMTOKEN #IMPLIED >
+<!ATTLIST character name NMTOKEN #REQUIRED >
+
+<!ELEMENT characters ( character+ ) >
+
+<!ELEMENT comic ( title, people, last-built, description, url, strip ) >
+<!ATTLIST comic version NMTOKEN #REQUIRED >
+
+<!ELEMENT description ( #PCDATA ) >
+
+<!ELEMENT email ( #PCDATA ) >
+
+<!ELEMENT emphasis ( #PCDATA ) >
+
+<!ELEMENT firstname ( #PCDATA ) >
+
+<!ELEMENT last-built ( #PCDATA ) >
+
+<!ELEMENT narration ( #PCDATA ) >
+<!ATTLIST narration type NMTOKEN #REQUIRED >
+
+<!ELEMENT panel ( url, panel-desc ) >
+<!ATTLIST panel conceptref CDATA #IMPLIED >
+<!ATTLIST panel id NMTOKEN #IMPLIED >
+
+<!ELEMENT panel-desc ( action | narration | speech )* >
+
+<!ELEMENT panels ( panel+ ) >
+
+<!ELEMENT people ( person+ ) >
+
+<!ELEMENT person ( firstname, surname+, email, url, role ) >
+
+<!ELEMENT role ( #PCDATA ) >
+
+<!ELEMENT speech ( #PCDATA | emphasis | strong )* >
+<!ATTLIST speech characterid NMTOKEN #REQUIRED >
+<!ATTLIST speech type NMTOKEN #IMPLIED >
+<!ATTLIST speech x NMTOKEN #IMPLIED >
+<!ATTLIST speech y NMTOKEN #IMPLIED >
+
+<!ELEMENT strip ( characters, panels ) >
+<!ATTLIST strip conceptref CDATA #IMPLIED >
+<!ATTLIST strip id NMTOKEN #IMPLIED >
+
+<!ELEMENT strong ( bang ) >
+
+<!ELEMENT surname ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT url ( #PCDATA ) >
+
