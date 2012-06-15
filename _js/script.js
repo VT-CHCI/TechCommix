@@ -68,8 +68,8 @@ $(document).ready(function(){
       $("#"+textId).text(ui.draggable.text());
 
       // Put command back and highlight completed
-      ui.draggable.addClass("steps-used");
-      ui.draggable.removeClass("steps-unused");
+      ui.draggable.addClass("dita-steps-used");
+      ui.draggable.removeClass("dita-steps-unused");
 
 
       // Create corresponding dictionary of steps currently in the svg
@@ -181,11 +181,8 @@ $(document).ready(function(){
     var reader = new FileReader();  
 
     reader.onload = function (evt) {  
-      $('#transformResult').getTransform(
-      '_files/getSteps.xsl',
-      evt.target.result
-      );
-      var steps = $($('#transformResult').children()[0]).children();
+      $('#transformResult').getTransform('_files/getSteps.xsl', evt.target.result);
+      var steps = $('#transformResult').children();
       $("#transformResult").text("");
       $("#transformResult").append(steps);
 
@@ -193,27 +190,27 @@ $(document).ready(function(){
         $(this).draggable({
           revert: true,
           stop: function(event, ui) {
-            $(this).removeClass("step-dragged");
+            $(this).removeClass("dita-step-dragged");
           }
         });
-        $(this).addClass("steps-unused");
+        $(this).addClass("dita-steps-unused");
       });
 
-      $(".step.ui-draggable").hover(
+      $(".dita-step.ui-draggable").hover(
         function() {
-          $(this).addClass("step-hover");
-          if ($(this).hasClass("steps-used")) {
+          $(this).addClass("dita-step-hover");
+          if ($(this).hasClass("dita-steps-used")) {
             highlightCorrespondingElems($(this).attr("id"));
           }
         },
         function() {
-          $(this).removeClass("step-hover");
-          if ($(this).hasClass("steps-used")) {
+          $(this).removeClass("dita-step-hover");
+          if ($(this).hasClass("dita-steps-used")) {
             unhighlightCorrespondingElems($(this).attr("id"));
           }
         }
       ).mousedown(function() {
-        $(this).addClass("step-dragged");
+        $(this).addClass("dita-step-dragged");
       });
 
       hideOriginalDita();
@@ -275,7 +272,7 @@ $(document).ready(function(){
           stepsInUse[stepId].splice(j, j+1);
           if (stepsInUse[stepId].length == 0) {
             delete stepsInUse[stepId];
-            $("#"+stepId).removeClass("steps-used").addClass("steps-unused");
+            $("#"+stepId).removeClass("dita-steps-used").addClass("dita-steps-unused");
           }
         }
       }

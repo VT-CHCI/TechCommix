@@ -119,38 +119,38 @@ body {
   text-align: center;
 }
 
-.step {
+.dita-step {
   border:2px solid;
   border-radius:25px;
   padding: 1px;
 }
 
-.steps-unused {
+.dita-steps-unused {
   background-color: rgba(0, 255, 0, .5);
 }
 
-.steps-used {
+.dita-steps-used {
   background-color: rgba(204, 0, 51, .5);
 }
 
-.steps-unused.step-hover {
+.dita-steps-unused.dita-step-hover {
   background-color: rgba(10, 200, 10, .8);
 }
 
-.steps-used.step-hover {
+.dita-steps-used.dita-step-hover {
   background-color: rgba(200, 10, 10, .8);
 }
 
-.steps-used.highlight {
+.dita-steps-used.highlight {
   background-color: rgba(255, 0, 0, .8);
 }
 
-.step-hover {
+.dita-step-hover {
   cursor: grab;
   cursor: -moz-grab;
 }
 
-.step-dragged {
+.dita-step-dragged {
   cursor: grabbing;
   cursor: -moz-grabbing;
   background-color: rgba(1, 1, 1, .5) !important;
