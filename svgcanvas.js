@@ -7881,6 +7881,7 @@ this.deleteSelectedElements = function() {
 			var idPair = {};
 			idPair[selectedElements[i].getAttribute("step-id")] = selectedElements[i].id;
 			deleteThese.push(idPair);
+			$("#"+selectedElements[i].id).mouseout();
 		}
 	}
 	if (deleteThese.length > 0) {
