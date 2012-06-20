@@ -532,11 +532,23 @@
 							.appendTo(btn_holder)
 							.click(function() { box.hide();callback(false)});
 					}
-					
+
+
+					var files = [];
 					if(type == 'prompt') {
-						var input = $('<input type="text">').prependTo(btn_holder);
-						input.val(defText || '');
-						input.bind('keydown', 'return', function() {ok.click();});
+						var input = $('<input id="picturePicker" type="file">').prependTo(btn_holder);
+						$("#picturePicker").change(function(evt){
+							files = evt.target.files;
+							var extension = files[0].name.substr( (files[0].name.lastIndexOf('.') +1) );
+							var validExtension = ["png", "gif", "jpg", "jpeg"]
+
+						    if (validExtension.indexOf(extension) < 0) {
+						      alert('Please select a valid image file (.png, .gif, .jpg, .jpeg)');
+						    }
+						});
+						var input1 = $('<input type="text">').prependTo(btn_holder);
+						//input.val(defText || '');
+						input1.bind('keydown', 'return', function() {ok.click();});
 					}
 					
 					if(type == 'process') {
@@ -547,8 +559,26 @@
 					
 					ok.click(function() { 
 						box.hide();
-						var resp = (type == 'prompt')?input.val():true;
-						if(callback) callback(resp);
+						var resp;
+
+						if (type == 'prompt') {
+							if (input1.val()) {
+								resp = input1.val()
+							} else if (input.val()) {
+								 var reader = new FileReader(); 
+
+								 reader.onload = function (evt) {
+								 	resp = evt.target.result;
+								 	if (callback) callback(resp);
+								 }
+
+								 reader.readAsDataURL(files[0]);
+							}else {
+								resp = true;
+							}
+						}
+						//var resp = (type == 'prompt')?input.val():true;
+						if(resp && callback) callback(resp);
 					}).focus();
 					
 					if(type == 'prompt') input.focus();
@@ -3319,7 +3349,7 @@
 				var curhref = svgCanvas.getHref(selectedElement);
 				curhref = curhref.indexOf("data:") === 0?"":curhref;
 				$.prompt(uiStrings.notification.enterNewImgURL, curhref, function(url) {
-					if(url) setImageURL(url);
+					if(url) { setImageURL(url); }
 				});
 			}
 		
