@@ -175,7 +175,7 @@ $(document).ready(function(){
 
     // Checks extension of file 
     var extension = files[0].name.substr( (files[0].name.lastIndexOf('.') +1) );
-    if (extension != 'xml' || extension != 'dita') {
+    if (extension != 'xml' && extension != 'dita') {
       alert('Please select a valid dita filetype (.xml, .dita)');
       return;
     }
