@@ -422,6 +422,7 @@
 					'#group_opacityLabel': 'opacity',
 					'#blurLabel': 'blur',
 					'#font_sizeLabel': 'fontsize',
+					'#speaking_characterLabel': 'characterSpeaking',
 					
 					'.flyout_arrow_horiz':'arrow_right',
 					'.dropdown button, #main_button .dropdown':'arrow_down',
@@ -1450,6 +1451,7 @@
 					$('#group_opacity').val(opac_perc);
 					$('#opac_slider').slider('option', 'value', opac_perc);
 					$('#elem_id').val(selectedElement.id);
+					$('#speakingCharacterInput').val($(selectedElement).attr("spokenBy"));
 				}
 				
 				updateToolButtonState();
@@ -1500,6 +1502,7 @@
 				var menu_items = $('#cmenu_canvas li');
 				$('#selected_panel, #multiselected_panel, #g_panel, #rect_panel, #circle_panel,\
 					#ellipse_panel, #line_panel, #text_panel, #image_panel, #container_panel, #use_panel, #a_panel').hide();
+				// $('#speakingCharacterInput').val("");
 				if (elem != null) {
 					var elname = elem.nodeName;
 					

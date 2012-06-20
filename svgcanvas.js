@@ -7875,17 +7875,21 @@ this.deleteSelectedElements = function() {
 	var batchCmd = new BatchCommand("Delete Elements");
 	var len = selectedElements.length;
 	
-	var deleteThese = []
+	var deleteThese = [];
+	var charsSpeechDeleted = [];
 	for (var i = 0; i < len; i++) {
 		if (selectedElements[i].tagName == "text") {
 			var idPair = {};
+			var charIdPair = {};
 			idPair[selectedElements[i].getAttribute("step-id")] = selectedElements[i].id;
+			charIdPair[selectedElements[i].getAttribute("spokenBy")] = selectedElements[i].id;
 			deleteThese.push(idPair);
+			charsSpeechDeleted.push(charIdPair);
 			$("#"+selectedElements[i].id).mouseout();
 		}
 	}
-	if (deleteThese.length > 0) {
-		$('#workarea').trigger('textDeleted', {"ids":deleteThese});
+	if (deleteThese.length > 0 || charsSpeechDeleted.length > 0) {
+		$('#workarea').trigger('textDeleted', {"ids":deleteThese, "charIdPairs":charsSpeechDeleted});
 	}
 
 	var selectedCopy = []; //selectedElements is being deleted

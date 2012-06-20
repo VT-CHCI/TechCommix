@@ -21,6 +21,9 @@ function equalHeight(group) {
 }
 
 var stepsInUse = {};
+var availableCharacters = [];
+var charsToBubbles = {};
+var ignoreChars = [];
 
 $(document).ready(function(){
   
@@ -106,7 +109,6 @@ $(document).ready(function(){
   //=======================================================================================
 
   function highlightCorrespondingElems(stepId) {
-    // console.log(stepId);
     if (stepsInUse && stepsInUse[stepId]) {
       for (var i = 0; i < stepsInUse[stepId].length; i++) {
         var svgElem = $("#"+stepsInUse[stepId][i]);
@@ -264,7 +266,9 @@ $(document).ready(function(){
   //scrolls the workarea such that the 
   var rulerOffset = $('#rulers').is(":visible") ? $("#ruler_x").height() : 0;
   $('#workarea').scrollTop($('#workarea').scrollTop()-($('#svgcontent').attr("height")/2+rulerOffset));
+
   $('#workarea').bind('textDeleted', function(event, args){
+    //maintain the dict of steps in the canvas
     for (var i = 0; i < args["ids"].length; i++) {
       for (var stepId in args["ids"][i]) {
         if (stepsInUse[stepId]) {
@@ -275,6 +279,67 @@ $(document).ready(function(){
             $("#"+stepId).removeClass("dita-steps-used").addClass("dita-steps-unused");
           }
         }
+      }
+    }
+
+    //maintain the dict of characters speaking
+    for (var i = 0; i < args["charIdPairs"].length; i++) {
+      for (var spokenBy in args["charIdPairs"][i]) {
+        if (charsToBubbles[spokenBy])
+        {
+          var j = charsToBubbles[spokenBy].indexOf(args["charIdPairs"][i][spokenBy]);
+          charsToBubbles[spokenBy].splice(j, j+1);
+
+          if (charsToBubbles[spokenBy].length == 0) {
+            delete charsToBubbles[spokenBy];
+            if (ignoreChars.indexOf(spokenBy) < 0) {
+              ignoreChars.push(spokenBy);
+            }
+          }
+        }
+      }
+    }
+  });
+
+  //sets up autocomplete for choosing the character that is speaking
+
+  $( "#speakingCharacterInput" ).autocomplete({
+    source: function (req, resp) {
+      var validChars = [];
+      for (var i = 0; i < availableCharacters.length; i++) {
+        if (ignoreChars.indexOf(availableCharacters[i]) < 0 && availableCharacters[i].substring(0, req["term"].length) == req["term"]) {
+          validChars.push(availableCharacters[i]);
+        }
+      }
+      resp(validChars);
+    }
+  });
+
+  //when you press enter on the character name field, it will update our dictionary, 
+  //the autocomplete ad add the char's name to their svg element
+  $('#speakingCharacterInput').keydown(function(e) {
+    if (e.which != 13) {
+      return;
+    }
+    
+    var newCharVal = $('#speakingCharacterInput').val();
+    if(newCharVal.length > 0) {
+      $("#"+$("#elem_id").val()).attr("spokenBy", newCharVal);
+      var indexInIgnoreList = ignoreChars.indexOf(newCharVal);
+      if (indexInIgnoreList >= 0) {
+        ignoreChars.splice(indexInIgnoreList, indexInIgnoreList+1);
+      }
+      if (charsToBubbles[newCharVal]) {
+        if (charsToBubbles[newCharVal].indexOf($("#elem_id").val())<0) {
+          charsToBubbles[newCharVal].push($("#elem_id").val());
+        }
+      }
+      else {
+        charsToBubbles[newCharVal]=[$("#elem_id").val()];
+        if (availableCharacters.indexOf(newCharVal) < 0) {
+          availableCharacters.push(newCharVal);
+        }
+        
       }
     }
   });
