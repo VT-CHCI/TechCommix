@@ -30,6 +30,8 @@ body {
   margin-right: -170px;  /* RC width */
   background-color: #aaa;
   min-height: 650px;
+  overflow: auto;
+  font-size:  10pt;
 }
 #footer {
   clear: both;

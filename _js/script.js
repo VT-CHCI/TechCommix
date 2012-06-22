@@ -62,6 +62,7 @@ $(document).ready(function(){
           "text-anchor": "middle",
           "xml:space": "preserve",
           "opacity": 1,
+          "class": "speech",
           "step-id": ui.draggable.attr("id")
         }
       });      
@@ -89,6 +90,8 @@ $(document).ready(function(){
       function() {
         $("#"+ui.draggable.attr("id")).removeClass("highlight");
       });
+
+      $('#output').trigger('refresh');
 
     }
   });
@@ -299,6 +302,9 @@ $(document).ready(function(){
         }
       }
     }
+
+    //speech deleted, update our output
+    $('#output').trigger('refresh');
   });
 
   //sets up autocomplete for choosing the character that is speaking
@@ -315,8 +321,8 @@ $(document).ready(function(){
     }
   });
 
-  //when you press enter on the character name field, it will update our dictionary, 
-  //the autocomplete ad add the char's name to their svg element
+  // when you press enter on the character name field, it will update our dictionary, 
+  // the autocomplete ad add the char's name to their svg
   $('#speakingCharacterInput').keydown(function(e) {
     if (e.which != 13) {
       return;
@@ -341,7 +347,74 @@ $(document).ready(function(){
         }
         
       }
+
+      $('#output').trigger('refresh');
     }
+  });
+
+  //generate output
+  $('#output').bind('refresh', function(event, args){
+    var pres = [];
+    var prefix = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+      "<?xml-stylesheet type=\"text/xsl\" href=\"example.xslt\"?>",
+      "<comic version=\"0.2\">",
+      "  <title>Why you should change your password</title>",
+      "  <people>",
+      "    <person>",
+      "      <firstname>Michael</firstname>",
+      "      <surname>Stewart</surname>",
+      "      <email>tgm@vt.edu</email>",
+      "      <url>http://www.vt.edu</url>",
+      "      <role>Researcher</role>",
+      "    </person>",
+      "  </people>",
+      "  <last-built>2012-06-22</last-built>",
+      "  <description>A brief description of why we're requiring the password change.</description>",
+      "  <url>http://answers.vt.edu</url>",
+      "  <strip id=\"password-concept-1\" conceptref=\"c01PWDchangerequirements.xml#c01PWDchangerequirements\">",
+      "    <characters>",
+      "      <character name=\"Libby\" id=\"libby\"/>",
+      "      <character name=\"Tim\" id=\"tim\"/>",
+      "    </characters>",
+      "    <panels>",
+      "      <panel>",
+      "        <panel-desc>"];
+    $.each(prefix, function(idx,val){
+      prefix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    });
+    
+    pres.push(prefix.join("</pre>\n<pre>"));
+
+    var speeches = [];
+
+    $("text.speech").each(function(){
+      var speechXmlElem = "<speech characterid=\"";
+      speechXmlElem += $(this).attr("spokenBy") + "\"";
+      speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
+      speechXmlElem += $(this).text() + "</speech>";
+      speeches.push(speechXmlElem);
+    });
+
+    $.each(speeches, function(idx,val){
+      speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    });
+
+    pres.push(speeches.join("</pre>\n<pre>"));
+    var suffix = [
+      "        </panel-desc>",
+      "      </panel>",
+      "    </panels>",
+      "  </strip>",
+      "</comic>"];
+    $.each(suffix, function(idx, val){
+      suffix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    });
+    pres.push(suffix.join("</pre>\n<pre>"));
+    $("#outputXML").children().remove();
+    $("#outputXML").append("<pre>"+pres.join("\n") + "</pre>");
+
+    // var x = "&lt;something /&gt;";
+    // $("section#output h2").after("<pre>" + x + "</pre>");
   });
 
 });
