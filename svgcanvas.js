@@ -7881,6 +7881,7 @@ this.deleteSelectedElements = function() {
 		if (selectedElements[i].tagName == "text") {
 			var idPair = {};
 			var charIdPair = {};
+			$(selectedElements[i]).addClass("deleted");
 			idPair[selectedElements[i].getAttribute("step-id")] = selectedElements[i].id;
 			charIdPair[selectedElements[i].getAttribute("spokenBy")] = selectedElements[i].id;
 			deleteThese.push(idPair);
@@ -7888,9 +7889,7 @@ this.deleteSelectedElements = function() {
 			$("#"+selectedElements[i].id).mouseout();
 		}
 	}
-	if (deleteThese.length > 0 || charsSpeechDeleted.length > 0) {
-		$('#workarea').trigger('textDeleted', {"ids":deleteThese, "charIdPairs":charsSpeechDeleted});
-	}
+	
 
 	var selectedCopy = []; //selectedElements is being deleted
 	for (var i = 0; i < len; ++i) {
@@ -7921,6 +7920,10 @@ this.deleteSelectedElements = function() {
 	if (!batchCmd.isEmpty()) addCommandToHistory(batchCmd);
 	call("changed", selectedCopy);
 	clearSelection();
+
+	if (deleteThese.length > 0 || charsSpeechDeleted.length > 0) {
+		$('#workarea').trigger('textDeleted', {"ids":deleteThese, "charIdPairs":charsSpeechDeleted});
+	}
 };
 
 // Function: cutSelectedElements
