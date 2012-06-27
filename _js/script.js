@@ -348,6 +348,8 @@ $(document).ready(function(){
         
       }
 
+      $('#speakingCharacterInput').blur();
+
       $('#output').trigger('refresh');
     }
   });
