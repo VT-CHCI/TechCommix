@@ -1692,6 +1692,7 @@
 							$('#font_family').val(elem.getAttribute("font-family"));
 							$('#font_size').val(elem.getAttribute("font-size"));
 							$('#text').val(elem.textContent);
+							$('#speechOrderInput').val(elem.getAttribute("speechOrder"));
 							if (svgCanvas.addedNew) {
 								// Timeout needed for IE9
 								setTimeout(function() {
@@ -1949,7 +1950,7 @@
 					return false;
 				}
 				
-				if (attr !== "id") {
+				if (attr !== "id" && attr !== "speechOrder") {
 					if (isNaN(val)) {
 						val = svgCanvas.convertToNum(attr, val);
 					} else if(curConfig.baseUnit !== 'px') {
@@ -1969,6 +1970,12 @@
 					var elem = selectedElement;
 					svgCanvas.clearSelection();
 					elem.id = val;
+					svgCanvas.addToSelection([elem],true);
+				}
+				else if (attr === "speechOrder") {
+					var elem = selectedElement;
+					svgCanvas.clearSelection();					
+					$(elem).attr("speechOrder", val);
 					svgCanvas.addToSelection([elem],true);
 				}
 				else {

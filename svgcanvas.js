@@ -3639,6 +3639,9 @@ var textActions = canvas.textActions = function() {
 		// No content, so return 0
 		if(chardata.length == 1) return 0;
 		// Determine if cursor should be on left or right of character
+		if (!curtext.getCharNumAtPosition) {
+			return 0;
+		}
 		var charpos = curtext.getCharNumAtPosition(pt);
 		if(charpos < 0) {
 			// Out of text range, look at mouse coords

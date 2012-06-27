@@ -35,3 +35,8 @@ svgCanvas.addSvgElementFromJson({
 <text id="svg_1" fill="#000000" stroke="#000000" stroke-width="0" style="pointer-events:inherit" x="112" y="369.73333740234375" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" fill-opacity="1" stroke-opacity="1">
 
         #svgcanvas svg *{cursor:move;pointer-events:all}, #svgcanvas svg{cursor:default}                Layer 1        
+
+
+for putting in ordering and improving the spokenBY:
+attr_changer is the css class applied ot the input fields in the original svg-edit these things have a change event to update their val.
+in svg-editor.js, see: $('.attr_changer').change(function() { 

@@ -270,6 +270,10 @@ svgedit.units.isValidUnit = function(attr, val, selectedElement) {
 			result = (elem == null || elem === selectedElement);
 		} catch(e) {}
 		return result;
+
+	} else if (attr == "speechOrder") {
+		var intVal = parseInt(val);
+		valid = !isNaN(intVal) && intVal > 0; //not not a number and greater than 0
 	} else {
 		valid = true;
 	}

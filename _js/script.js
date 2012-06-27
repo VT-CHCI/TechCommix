@@ -357,6 +357,19 @@ $(document).ready(function(){
   //generate output
   $('#output').bind('refresh', function(event, args){
     var pres = [];
+    var validChars = [];
+    for (var i = 0; i < availableCharacters.length; i++) {
+      if (ignoreChars.indexOf(availableCharacters[i]) < 0) {
+        //character not ignored so put them in the characters list
+        validChars.push(availableCharacters[i]);
+      }
+    }
+
+    var characters = [];
+    for (var i=0; i < validChars.length; i++) {
+      characters.push('      <character name="' + validChars[i] + '" id="' + validChars[i].toLowerCase() + '"/>');
+    }
+
     var prefix = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
       "<?xml-stylesheet type=\"text/xsl\" href=\"example.xslt\"?>",
       "<comic version=\"0.2\">",
@@ -374,13 +387,12 @@ $(document).ready(function(){
       "  <description>A brief description of why we're requiring the password change.</description>",
       "  <url>http://answers.vt.edu</url>",
       "  <strip id=\"password-concept-1\" conceptref=\"c01PWDchangerequirements.xml#c01PWDchangerequirements\">",
-      "    <characters>",
-      "      <character name=\"Libby\" id=\"libby\"/>",
-      "      <character name=\"Tim\" id=\"tim\"/>",
-      "    </characters>",
+      "    <characters>"];
+      prefix.push.apply(prefix, characters);
+      prefix.push.apply(prefix, ["    </characters>",
       "    <panels>",
       "      <panel>",
-      "        <panel-desc>"];
+      "        <panel-desc>"]);
     $.each(prefix, function(idx,val){
       prefix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     });
@@ -389,7 +401,11 @@ $(document).ready(function(){
 
     var speeches = [];
 
-    $("text.speech").each(function(){
+    var speechDomElems = $("text.speech");
+    speechDomElems.sort(function (a,b) {
+      return $(a).attr("speechOrder") - $(b).attr("speechOrder");
+    });
+    speechDomElems.each(function(){
       var speechXmlElem = "<speech characterid=\"";
       speechXmlElem += $(this).attr("spokenBy") + "\"";
       speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
@@ -414,9 +430,10 @@ $(document).ready(function(){
     pres.push(suffix.join("</pre>\n<pre>"));
     $("#outputXML").children().remove();
     $("#outputXML").append("<pre>"+pres.join("\n") + "</pre>");
+  });
 
-    // var x = "&lt;something /&gt;";
-    // $("section#output h2").after("<pre>" + x + "</pre>");
+  $("#speechOrderInput").change(function(){
+    $('#output').trigger('refresh');
   });
 
 });
