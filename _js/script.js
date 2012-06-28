@@ -25,6 +25,10 @@ var availableCharacters = [];
 var charsToBubbles = {};
 var ignoreChars = [];
 
+
+var panels = []; //to store the svg src code of each panel.
+var currentPanel = 0;
+
 $(document).ready(function(){
   
   // Set columns to equal heights
@@ -199,6 +203,9 @@ $(document).ready(function(){
           }
         });
         $(this).addClass("dita-steps-unused");
+
+        //remove nbsp chars
+        $(this).text($(this).text().replace(new RegExp(String.fromCharCode(160), "g"), " "));
       });
 
       $(".dita-step.ui-draggable").hover(
@@ -436,6 +443,40 @@ $(document).ready(function(){
     $('#output').trigger('refresh');
   });
 
-});
+  $("#saveAndNext").click(function(){
+    $("#tool_select").click();
+    panels.push(svgCanvas.getSvgString());
+    currentPanel = panels.length;
+    var objId = svgCanvas.getCurrentDrawing().obj_num;
+    svgCanvas.setSvgString('<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg"> <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --> <g> <title>Layer 1</title> </g> </svg>');    
+    svgCanvas.getCurrentDrawing().obj_num = objId;
 
-  
+    $("#saveLoadPrev").removeClass("hidden");
+  });
+
+  $("#saveLoadPrev").click(function(){
+    $("#tool_select").click();
+    if (currentPanel == 1) {
+      $("#saveLoadPrev").toggleClass("hidden");
+    }
+    panels[currentPanel] = svgCanvas.getSvgString();
+    var objId = svgCanvas.getCurrentDrawing().obj_num;
+    svgCanvas.setSvgString(panels[--currentPanel]);
+    svgCanvas.getCurrentDrawing().obj_num = objId;
+    $("#saveLoadNext").removeClass("hidden");
+  });
+
+  $("#saveLoadNext").click(function(){
+    $("#tool_select").click();
+    if (currentPanel == panels.length-1) {
+      $("#saveLoadNext").toggleClass("hidden");
+    }
+    panels[currentPanel] = svgCanvas.getSvgString();
+    
+    var objId = svgCanvas.getCurrentDrawing().obj_num;
+    svgCanvas.setSvgString(panels[++currentPanel]);
+    svgCanvas.getCurrentDrawing().obj_num = objId;
+    
+  });
+
+});
