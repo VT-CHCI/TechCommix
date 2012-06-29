@@ -26,7 +26,6 @@ var charsToBubbles = {};
 var ignoreChars = [];
 
 
-var panels = []; //to store the svg src code of each panel.
 var currentPanel = 0;
 
 $(document).ready(function(){
@@ -377,7 +376,8 @@ $(document).ready(function(){
       characters.push('      <character name="' + validChars[i] + '" id="' + validChars[i].toLowerCase() + '"/>');
     }
 
-    var prefix = ["<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
+    var prefix = [
+      "<?xml version=\"1.0\" encoding=\"UTF-8\"?>",
       "<?xml-stylesheet type=\"text/xsl\" href=\"example.xslt\"?>",
       "<comic version=\"0.2\">",
       "  <title>Why you should change your password</title>",
@@ -396,41 +396,82 @@ $(document).ready(function(){
       "  <strip id=\"password-concept-1\" conceptref=\"c01PWDchangerequirements.xml#c01PWDchangerequirements\">",
       "    <characters>"];
       prefix.push.apply(prefix, characters);
-      prefix.push.apply(prefix, ["    </characters>",
-      "    <panels>",
-      "      <panel>",
-      "        <panel-desc>"]);
+      prefix.push.apply(prefix, 
+      [
+        "    </characters>",
+        "    <panels>"
+      ]);
+      // "      <panel>",
+      // "        <panel-desc>"]);    
+
+    $("#allPanels .panel").each(function(){
+      prefix.push.apply(prefix, [
+        "      <panel>",
+        "        <panel-desc>"]
+      );
+
+      var speeches = [];
+      $(this).children().find("text.speech").sort(function (a,b) {
+        return $(a).attr("speechOrder") - $(b).attr("speechOrder");
+      }).each(function(){
+        var speechXmlElem = "          <speech characterid=\"";
+        speechXmlElem += $(this).attr("spokenBy") + "\"";
+        speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
+        speechXmlElem += $(this).text() + "</speech>";
+        speeches.push(speechXmlElem);
+      });
+
+      // $.each(speeches, function(idx,val){
+      //   speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // });
+      // pres.push(speeches.join("</pre>\n<pre>"));
+      prefix.push.apply(prefix,speeches);
+
+      var closePanels = ["        </panel-desc>", "      </panel>"];
+      // $.each(closePanels, function(idx,val){
+      //   closePanels[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      // });
+
+      prefix.push.apply(prefix, closePanels);
+    });
+
+    //replace angle brackets with displayable characters 
     $.each(prefix, function(idx,val){
       prefix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     });
     
     pres.push(prefix.join("</pre>\n<pre>"));
 
-    var speeches = [];
+    // var speeches = [];
 
-    var speechDomElems = $("text.speech");
-    speechDomElems.sort(function (a,b) {
-      return $(a).attr("speechOrder") - $(b).attr("speechOrder");
-    });
-    speechDomElems.each(function(){
-      var speechXmlElem = "<speech characterid=\"";
-      speechXmlElem += $(this).attr("spokenBy") + "\"";
-      speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
-      speechXmlElem += $(this).text() + "</speech>";
-      speeches.push(speechXmlElem);
-    });
+    // //TGM TODO: implement per/panel speech $("#allPanels .panel").each...
 
-    $.each(speeches, function(idx,val){
-      speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    });
+    // var speechDomElems = $("text.speech");
+    // speechDomElems.sort(function (a,b) {
+    //   return $(a).attr("speechOrder") - $(b).attr("speechOrder");
+    // });
+    // speechDomElems.each(function(){
+    //   var speechXmlElem = "<speech characterid=\"";
+    //   speechXmlElem += $(this).attr("spokenBy") + "\"";
+    //   speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
+    //   speechXmlElem += $(this).text() + "</speech>";
+    //   speeches.push(speechXmlElem);
+    // });
 
-    pres.push(speeches.join("</pre>\n<pre>"));
-    var suffix = [
-      "        </panel-desc>",
-      "      </panel>",
+    // $.each(speeches, function(idx,val){
+    //   speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // });
+
+    // pres.push(speeches.join("</pre>\n<pre>"));
+    var suffix = 
+    [
+      // "        </panel-desc>",
+      // "      </panel>",
       "    </panels>",
       "  </strip>",
-      "</comic>"];
+      "</comic>"
+    ];
+
     $.each(suffix, function(idx, val){
       suffix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     });
@@ -445,13 +486,19 @@ $(document).ready(function(){
 
   $("#saveAndNext").click(function(){
     $("#tool_select").click();
-    panels.push(svgCanvas.getSvgString());
-    currentPanel = panels.length;
+    if ($("#allPanels").children().length == currentPanel) {
+      $("#allPanels").append($('<div class="panel"></div>').append(svgCanvas.getSvgString()));
+    }
+    else {
+      $("#allPanels div:nth-child("+(currentPanel)+") svg").replaceWith(svgCanvas.getSvgString());
+    }
+    currentPanel = $("#allPanels").children().length;
     var objId = svgCanvas.getCurrentDrawing().obj_num;
     svgCanvas.setSvgString('<svg width="640" height="480" xmlns="http://www.w3.org/2000/svg"> <!-- Created with SVG-edit - http://svg-edit.googlecode.com/ --> <g> <title>Layer 1</title> </g> </svg>');    
     svgCanvas.getCurrentDrawing().obj_num = objId;
 
     $("#saveLoadPrev").removeClass("hidden");
+    $('#output').trigger('refresh');
   });
 
   $("#saveLoadPrev").click(function(){
@@ -459,24 +506,34 @@ $(document).ready(function(){
     if (currentPanel == 1) {
       $("#saveLoadPrev").toggleClass("hidden");
     }
-    panels[currentPanel] = svgCanvas.getSvgString();
+
+    if ($("#allPanels").children().length == currentPanel) {
+      $("#allPanels").append($('<div class="panel"></div>').append(svgCanvas.getSvgString()));
+    }
+    else {
+      $("#allPanels div:nth-child("+(currentPanel+1)+") svg").replaceWith(svgCanvas.getSvgString());
+    }
+    
     var objId = svgCanvas.getCurrentDrawing().obj_num;
-    svgCanvas.setSvgString(panels[--currentPanel]);
+    svgCanvas.setSvgString($("#allPanels div:nth-child("+(currentPanel--)+")").html());
     svgCanvas.getCurrentDrawing().obj_num = objId;
     $("#saveLoadNext").removeClass("hidden");
+    $('#output').trigger('refresh');
   });
 
   $("#saveLoadNext").click(function(){
     $("#tool_select").click();
-    if (currentPanel == panels.length-1) {
-      $("#saveLoadNext").toggleClass("hidden");
+    $("#saveLoadPrev").removeClass("hidden");
+    if (currentPanel == $("#allPanels").children().length-2) {
+      $("#saveLoadNext").addClass("hidden");
     }
-    panels[currentPanel] = svgCanvas.getSvgString();
-    
+
+    $("#allPanels div:nth-child("+(++currentPanel)+") svg").replaceWith(svgCanvas.getSvgString());
+   
     var objId = svgCanvas.getCurrentDrawing().obj_num;
-    svgCanvas.setSvgString(panels[++currentPanel]);
+    svgCanvas.setSvgString($("#allPanels div:nth-child("+(currentPanel+1)+")").html());
     svgCanvas.getCurrentDrawing().obj_num = objId;
-    
+    $('#output').trigger('refresh');
   });
 
 });
