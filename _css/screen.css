@@ -186,3 +186,49 @@ footer {
 
   /*margin-top: 650px;*/
 }
+
+
+/* 
+----------Infinite Carousel----------
+*/
+
+.infiniteCarousel {
+  width: 750px;
+  position: relative;
+}
+
+.infiniteCarousel .wrapper {
+  width: 765px; /* .infiniteCarousel width - (.wrapper margin-left + .wrapper margin-right) */
+  overflow: auto;
+  min-height: 13em;
+  position: absolute;
+  top: 0;
+  left: -27px;
+}
+
+.infiniteCarousel ul img {
+  border: 5px solid #000;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+}
+
+.infiniteCarousel .wrapper ul {
+  width: 29260px;
+  list-style-image:none;
+  list-style-position:outside;
+  list-style-type:none;
+  margin:0;
+  padding:0;
+  position: absolute;
+  top: 0;
+}
+
+.infiniteCarousel ul li {
+  display:block;
+  float:left;
+  padding: 10px;
+}
+
+.infiniteCarousel ul li img {
+  display:block;
+}
