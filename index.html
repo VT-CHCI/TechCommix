@@ -5,290 +5,65 @@
 <!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
 <!-- Consider adding a manifest.appcache: h5bp.com/d/Offline -->
 <!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="utf-8">
 
-  <!-- Use the .htaccess and remove these lines to avoid edge case issues.
-       More info: h5bp.com/i/378 -->
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <!-- Use the .htaccess and remove these lines to avoid edge case issues.
+         More info: h5bp.com/i/378 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-  <title></title>
-  <meta name="description" content="">
+    <title></title>
+    <meta name="description" content="">
 
-  <!-- Mobile viewport optimized: h5bp.com/viewport -->
-  <meta name="viewport" content="width=device-width">
+    <!-- Mobile viewport optimized: h5bp.com/viewport -->
+    <meta name="viewport" content="width=device-width">
 
-  <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory: mathiasbynens.be/notes/touch-icons -->
 
-  <link rel="stylesheet" href="_css/style.css">
-  <link rel="stylesheet" href="_css/screen.css">
-  <link rel="stylesheet" href="_css/jquery-ui-1.8.21.custom.css">
-  
-  <!-- css for svg-edit -->
-  <link rel="stylesheet" href="jgraduate/css/jPicker.css" type="text/css"/>
-  <link rel="stylesheet" href="jgraduate/css/jgraduate.css" type="text/css"/>
-  <link rel="stylesheet" href="svg-editor.css" type="text/css"/>
-  <link rel="stylesheet" href="spinbtn/JQuerySpinBtn.css" type="text/css"/>
+    <link rel="stylesheet" href="_css/style.css">
+    <link rel="stylesheet" href="_css/screen.css">
+    <link rel="stylesheet" href="_css/jquery-ui-1.8.21.custom.css">
+    
+    <!-- css for svg-edit -->
+    <link rel="stylesheet" href="jgraduate/css/jPicker.css" type="text/css"/>
+    <link rel="stylesheet" href="jgraduate/css/jgraduate.css" type="text/css"/>
+    <link rel="stylesheet" href="svg-editor.css" type="text/css"/>
+    <link rel="stylesheet" href="spinbtn/JQuerySpinBtn.css" type="text/css"/>
 
-  <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
+    <!-- More ideas for your <head> here: h5bp.com/d/head-Tips -->
 
-  <!-- All JavaScript at the bottom, except this Modernizr build.
-       Modernizr enables HTML5 elements & feature detects for optimal performance.
-       Create your own custom Modernizr build: www.modernizr.com/download/ -->
-  <script src="_js/libs/modernizr-2.5.3.min.js"></script>
-</head>
-<body>
-  <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
-       chromium.org/developers/how-tos/chrome-frame-getting-started -->
-  <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
-  <header>
-    <h1>Create your comic</h1>
-    <p>This work is a project of the <a href="http://hci.cs.vt.edu" title="VT CHCI">Virginia Tech Center for Human-Computer Interaction</a>. <a id="saveAndNext" href="#">Save and Create Next</a> | <a class="hidden" id="saveLoadPrev" href="#">Save and Load Previous</a> | <a class="hidden" id="saveLoadNext" href="#">Save and Load Next</a></p>
-  </header>
-	<div id="main" role="main">
+    <!-- All JavaScript at the bottom, except this Modernizr build.
+         Modernizr enables HTML5 elements & feature detects for optimal performance.
+         Create your own custom Modernizr build: www.modernizr.com/download/ -->
+    <script src="_js/libs/modernizr-2.5.3.min.js"></script>
+  </head>
+  <body>
+    <!-- Prompt IE 6 users to install Chrome Frame. Remove this if you support IE 6.
+         chromium.org/developers/how-tos/chrome-frame-getting-started -->
+    <!--[if lt IE 7]><p class=chromeframe>Your browser is <em>ancient!</em> <a href="http://browsehappy.com/">Upgrade to a different browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to experience this site.</p><![endif]-->
+    <header>
+      <h1>Create your comic</h1>
+      <p>This work is a project of the <a href="http://hci.cs.vt.edu" title="VT CHCI">Virginia Tech Center for Human-Computer Interaction</a>. <a id="saveAndNext" href="#">Save and Create Next</a> | <a class="hidden" id="saveLoadPrev" href="#">Save and Load Previous</a> | <a class="hidden" id="saveLoadNext" href="#">Save and Load Next</a></p>
+    </header>
+  	<div id="main" role="main">
 
-		<section id="workspace" class="column">
-			<section id="workspace-editor">
-        
-        <div id="svg_editor">
+  		<section id="workspace" class="column">
+  			<section id="workspace-editor">
+          
+          <div id="svg_editor">
 
-        <div id="rulers">
-        	<div id="ruler_corner"></div>
-        	<div id="ruler_x">
-        		<div>
-        			<canvas height="15"></canvas>
-        		</div>
-        	</div>
-        	<div id="ruler_y">
-        		<div>
-        			<canvas width="15"></canvas>
-        		</div>
-        	</div>
-        </div>
-
-        <div id="workarea">
-        <style id="styleoverrides" type="text/css" media="screen" scoped="scoped"></style>
-        <div id="svgcanvas" style="position:relative">
-
-        </div>
-        </div>
-
-        <div id="sidepanels">
-        	<div id="layerpanel">
-        		<h3 id="layersLabel">Layers</h3>
-        		<fieldset id="layerbuttons">
-        			<div id="layer_new" class="layer_button"  title="New Layer"></div>
-        			<div id="layer_delete" class="layer_button"  title="Delete Layer"></div>
-        			<div id="layer_rename" class="layer_button"  title="Rename Layer"></div>
-        			<div id="layer_up" class="layer_button"  title="Move Layer Up"></div>
-        			<div id="layer_down" class="layer_button"  title="Move Layer Down"></div>
-        			<div id="layer_moreopts" class="layer_button"  title="More Options"></div>
-        		</fieldset>
-
-        		<table id="layerlist">
-        			<tr class="layer">
-        				<td class="layervis"></td>
-        				<td class="layername">Layer 1</td>
-        			</tr>
-        		</table>
-        		<span id="selLayerLabel">Move elements to:</span>
-        		<select id="selLayerNames" title="Move selected elements to a different layer" disabled="disabled">
-        			<option selected="selected" value="layer1">Layer 1</option>
-        		</select>
-        	</div>
-        	<div id="sidepanel_handle" title="Drag left/right to resize side panel [X]">L a y e r s</div>
-        </div>
-
-        <div id="main_button">
-        	<div id="main_icon" class="buttonup" title="Main Menu">
-        		<span></span>
-        		<div id="logo"></div>
-        		<div class="dropdown"></div>
-        	</div>
-
-        	<div id="main_menu"> 
-
-        		<!-- File-like buttons: New, Save, Source -->
-        		<ul>
-        			<li id="tool_clear">
-        				<div></div>
-        				New Image (N)
-        			</li>
-
-        			<li id="tool_open" style="display:none;">
-        				<div id="fileinputs">
-        					<div></div>
-        				</div>
-        				Open Image
-        			</li>
-
-        			<li id="tool_import" style="display:none;">
-        				<div id="fileinputs_import">
-        					<div></div>
-        				</div>
-        				Import SVG
-        			</li>
-
-        			<li id="tool_save">
-        				<div></div>
-        				Save Image (S)
-        			</li>
-
-        			<li id="tool_export">
-        				<div></div>
-        				Export as PNG
-        			</li>
-
-        			<li id="tool_docprops">
-        				<div></div>
-        				Document Properties (D)
-        			</li>
-        		</ul>
-
-        		<p>
-        			<a href="http://svg-edit.googlecode.com/" target="_blank">
-        				SVG-edit Home Page
-        			</a>
-        		</p>
-
-        		<button id="tool_prefs_option">
-        			Editor Options
-        		</button>
-
-
-        	</div>
-        </div>
-
-
-
-        <div id="tools_top" class="tools_panel">
-
-        	<div id="editor_panel">
-        		<div class="push_button" id="tool_source" title="Edit Source [U]"></div>
-        		<div class="tool_button" id="tool_wireframe" title="Wireframe Mode [F]"></div>
-        	</div>
-
-            <!-- History buttons -->
-        	<div id="history_panel">
-        		<div class="tool_sep"></div>
-        		<div class="push_button tool_button_disabled" id="tool_undo" title="Undo [Z]"></div>
-        		<div class="push_button tool_button_disabled" id="tool_redo" title="Redo [Y]"></div>
-        	</div>
-
-        	<!-- Buttons when a single element is selected -->
-        	<div id="selected_panel">
-        		<div class="toolset">
-        			<div class="tool_sep"></div>
-        			<div class="push_button" id="tool_clone" title="Duplicate Element [D]"></div>
-        			<div class="push_button" id="tool_delete" title="Delete Element [Delete/Backspace]"></div>
-        			<div class="tool_sep"></div>
-        			<div class="push_button" id="tool_move_top" title="Bring to Front [ Ctrl+Shift+] ]"></div>
-        			<div class="push_button" id="tool_move_bottom" title="Send to Back [ Ctrl+Shift+[ ]"></div>
-        			<div class="push_button" id="tool_topath" title="Convert to Path"></div>
-        			<div class="push_button" id="tool_reorient" title="Reorient path"></div>
-        			<div class="push_button" id="tool_make_link" title="Make (hyper)link"></div>
-        			<div class="tool_sep"></div>
-        			<label id="idLabel" title="Identify the element">
-        				<span>id:</span>
-        				<input id="elem_id" class="attr_changer" data-attr="id" size="10" type="text"/>
-        			</label>
-        		</div>
-
-        		<label id="tool_angle" title="Change rotation angle" class="toolset">
-        			<span id="angleLabel" class="icon_label"></span>
-        			<input id="angle" size="2" value="0" type="text"/>
-        		</label>
-
-        		<div class="toolset" id="tool_blur" title="Change gaussian blur value">
-        			<label>
-        				<span id="blurLabel" class="icon_label"></span>
-        				<input id="blur" size="2" value="0" type="text"/>
-        			</label>
-        			<div id="blur_dropdown" class="dropdown">
-        				<button></button>
-        				<ul>
-        					<li class="special"><div id="blur_slider"></div></li>
-        				</ul>
-        			</div>
-        		</div>
-
-        		<div class="dropdown toolset" id="tool_position" title="Align Element to Page">
-        				<div id="cur_position" class="icon_label"></div>
-        				<button></button>
-        		</div>		
-
-        		<div id="xy_panel" class="toolset">
-        			<label>
-        				x: <input id="selected_x" class="attr_changer" title="Change X coordinate" size="3" data-attr="x"/>
-        			</label>
-        			<label>
-        				y: <input id="selected_y" class="attr_changer" title="Change Y coordinate" size="3" data-attr="y"/>
-        			</label>
-        		</div>
-        	</div>
-
-        	<!-- Buttons when multiple elements are selected -->
-        	<div id="multiselected_panel">
-        		<div class="tool_sep"></div>
-        		<div class="push_button" id="tool_clone_multi" title="Clone Elements [C]"></div>
-        		<div class="push_button" id="tool_delete_multi" title="Delete Selected Elements [Delete/Backspace]"></div>
-        		<div class="tool_sep"></div>
-        		<div class="push_button" id="tool_group" title="Group Elements [G]"></div>
-        		<div class="push_button" id="tool_make_link_multi" title="Make (hyper)link"></div>
-        		<div class="push_button" id="tool_alignleft" title="Align Left"></div>
-        		<div class="push_button" id="tool_aligncenter" title="Align Center"></div>
-        		<div class="push_button" id="tool_alignright" title="Align Right"></div>
-        		<div class="push_button" id="tool_aligntop" title="Align Top"></div>
-        		<div class="push_button" id="tool_alignmiddle" title="Align Middle"></div>
-        		<div class="push_button" id="tool_alignbottom" title="Align Bottom"></div>
-        		<label id="tool_align_relative"> 
-        			<span id="relativeToLabel">relative to:</span>
-        			<select id="align_relative_to" title="Align relative to ...">
-        			<option id="selected_objects" value="selected">selected objects</option>
-        			<option id="largest_object" value="largest">largest object</option>
-        			<option id="smallest_object" value="smallest">smallest object</option>
-        			<option id="page" value="page">page</option>
-        			</select>
-        		</label>
-        		<div class="tool_sep"></div>
-
-        	</div>
-
-        	<div id="rect_panel">
-        		<div class="toolset">
-        			<label id="rect_width_tool" title="Change rectangle width">
-        				<span id="rwidthLabel" class="icon_label"></span>
-        				<input id="rect_width" class="attr_changer" size="3" data-attr="width"/>
-        			</label>
-        			<label id="rect_height_tool" title="Change rectangle height">
-        				<span id="rheightLabel" class="icon_label"></span>
-        				<input id="rect_height" class="attr_changer" size="3" data-attr="height"/>
-        			</label>
-        		</div>
-        		<label id="cornerRadiusLabel" title="Change Rectangle Corner Radius" class="toolset">
-        			<span class="icon_label"></span>
-        			<input id="rect_rx" size="3" value="0" type="text" data-attr="Corner Radius"/>
-        		</label>
-        	</div>
-
-        	<div id="image_panel">
-        	<div class="toolset">
-        		<label><span id="iwidthLabel" class="icon_label"></span>
-        		<input id="image_width" class="attr_changer" title="Change image width" size="3" data-attr="width"/>
-        		</label>
-        		<label><span id="iheightLabel" class="icon_label"></span>
-        		<input id="image_height" class="attr_changer" title="Change image height" size="3" data-attr="height"/>
-        		</label>
-        	</div>
-        	<div class="toolset">
-        		<label id="tool_image_url">url:
-        			<input id="image_url" type="text" title="Change URL" size="35"/>
-        		</label>
-        		<label id="tool_change_image">
-        			<button id="change_image_url" style="display:none;">Change Image</button>
-        			<span id="url_notice" title="NOTE: This image cannot be embedded. It will depend on this path to be displayed"></span>
-        		</label>
-        	</div>
+          <div id="rulers">
+          	<div id="ruler_corner"></div>
+          	<div id="ruler_x">
+          		<div>
+          			<canvas height="15"></canvas>
+          		</div>
+          	</div>
+          	<div id="ruler_y">
+          		<div>
+          			<canvas width="15"></canvas>
+          		</div>
+          	</div>
           </div>
 
         	<div id="circle_panel">

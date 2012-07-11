@@ -1481,7 +1481,7 @@
 					$('#group_opacity').val(opac_perc);
 					$('#opac_slider').slider('option', 'value', opac_perc);
 					$('#elem_id').val(selectedElement.id);
-					$('#speakingCharacterInput').val($(selectedElement).attr("spokenBy"));
+					$('#speakingCharacterInput').val($(selectedElement).attr("spokenby"));
 				}
 				
 				updateToolButtonState();
@@ -1692,7 +1692,7 @@
 							$('#font_family').val(elem.getAttribute("font-family"));
 							$('#font_size').val(elem.getAttribute("font-size"));
 							$('#text').val(elem.textContent);
-							$('#speechOrderInput').val(elem.getAttribute("speechOrder"));
+							$('#speechOrderInput').val(elem.getAttribute("speechorder"));
 							if (svgCanvas.addedNew) {
 								// Timeout needed for IE9
 								setTimeout(function() {
@@ -1950,7 +1950,7 @@
 					return false;
 				}
 				
-				if (attr !== "id" && attr !== "speechOrder") {
+				if (attr !== "id" && attr !== "speechorder") {
 					if (isNaN(val)) {
 						val = svgCanvas.convertToNum(attr, val);
 					} else if(curConfig.baseUnit !== 'px') {
@@ -1972,10 +1972,10 @@
 					elem.id = val;
 					svgCanvas.addToSelection([elem],true);
 				}
-				else if (attr === "speechOrder") {
+				else if (attr === "speechorder") {
 					var elem = selectedElement;
 					svgCanvas.clearSelection();					
-					$(elem).attr("speechOrder", val);
+					$(elem).attr("speechorder", val);
 					svgCanvas.addToSelection([elem],true);
 				}
 				else {

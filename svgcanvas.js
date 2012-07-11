@@ -5752,7 +5752,7 @@ this.setSvgString = function(xmlString) {
 		else {
 			svgcontent = svgdoc.importNode(newDoc.documentElement, true);
 		}
-		
+
 		svgroot.appendChild(svgcontent);
 		var content = $(svgcontent);
 		
@@ -5868,7 +5868,7 @@ this.setSvgString = function(xmlString) {
 		// result from the percs calculation
 		if(attrs.width <= 0) attrs.width = 100;
 		if(attrs.height <= 0) attrs.height = 100;
-		
+
 		content.attr(attrs);
 		this.contentW = attrs['width'];
 		this.contentH = attrs['height'];
@@ -7886,7 +7886,7 @@ this.deleteSelectedElements = function() {
 			var charIdPair = {};
 			$(selectedElements[i]).addClass("deleted");
 			idPair[selectedElements[i].getAttribute("step-id")] = selectedElements[i].id;
-			charIdPair[selectedElements[i].getAttribute("spokenBy")] = selectedElements[i].id;
+			charIdPair[selectedElements[i].getAttribute("spokenby")] = selectedElements[i].id;
 			deleteThese.push(idPair);
 			charsSpeechDeleted.push(charIdPair);
 			$("#"+selectedElements[i].id).mouseout();
