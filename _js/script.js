@@ -336,7 +336,7 @@ $(document).ready(function(){
     
     var newCharVal = $('#speakingCharacterInput').val();
     if(newCharVal.length > 0) {
-      $("#"+$("#elem_id").val()).attr("spokenBy", newCharVal);
+      $("#"+$("#elem_id").val()).attr("spokenby", newCharVal);
       var indexInIgnoreList = ignoreChars.indexOf(newCharVal);
       if (indexInIgnoreList >= 0) {
         ignoreChars.splice(indexInIgnoreList, indexInIgnoreList+1);
@@ -401,8 +401,6 @@ $(document).ready(function(){
         "    </characters>",
         "    <panels>"
       ]);
-      // "      <panel>",
-      // "        <panel-desc>"]);    
 
     $("#allPanels .panel").each(function(){
       prefix.push.apply(prefix, [
@@ -412,70 +410,37 @@ $(document).ready(function(){
 
       var speeches = [];
       $(this).children().find("text.speech").sort(function (a,b) {
-        return $(a).attr("speechOrder") - $(b).attr("speechOrder");
+        return $(a).attr("speechorder") - $(b).attr("speechorder");
       }).each(function(){
         var speechXmlElem = "          <speech characterid=\"";
-        speechXmlElem += $(this).attr("spokenBy") + "\"";
+        speechXmlElem += $(this).attr("spokenby") + "\"";
         speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
         speechXmlElem += $(this).text() + "</speech>";
         speeches.push(speechXmlElem);
       });
 
-      // $.each(speeches, function(idx,val){
-      //   speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      // });
-      // pres.push(speeches.join("</pre>\n<pre>"));
       prefix.push.apply(prefix,speeches);
 
       var closePanels = ["        </panel-desc>", "      </panel>"];
-      // $.each(closePanels, function(idx,val){
-      //   closePanels[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-      // });
 
       prefix.push.apply(prefix, closePanels);
     });
 
-    //replace angle brackets with displayable characters 
-    $.each(prefix, function(idx,val){
-      prefix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    });
-    
-    pres.push(prefix.join("</pre>\n<pre>"));
-
-    // var speeches = [];
-
-    // //TGM TODO: implement per/panel speech $("#allPanels .panel").each...
-
-    // var speechDomElems = $("text.speech");
-    // speechDomElems.sort(function (a,b) {
-    //   return $(a).attr("speechOrder") - $(b).attr("speechOrder");
-    // });
-    // speechDomElems.each(function(){
-    //   var speechXmlElem = "<speech characterid=\"";
-    //   speechXmlElem += $(this).attr("spokenBy") + "\"";
-    //   speechXmlElem += " x=\"" + $(this).attr("x") + "\" y=\"" + $(this).attr("y") +"\">";
-    //   speechXmlElem += $(this).text() + "</speech>";
-    //   speeches.push(speechXmlElem);
-    // });
-
-    // $.each(speeches, function(idx,val){
-    //   speeches[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-    // });
-
-    // pres.push(speeches.join("</pre>\n<pre>"));
     var suffix = 
     [
-      // "        </panel-desc>",
-      // "      </panel>",
       "    </panels>",
       "  </strip>",
       "</comic>"
     ];
 
-    $.each(suffix, function(idx, val){
-      suffix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    prefix.push.apply(prefix,suffix);
+
+    //replace angle brackets with displayable characters 
+    $.each(prefix, function(idx,val){
+      prefix[idx] = val.replace(/</g, "&lt;").replace(/>/g, "&gt;");
     });
-    pres.push(suffix.join("</pre>\n<pre>"));
+
+    pres.push(prefix.join("</pre>\n<pre>"));
     $("#outputXML").children().remove();
     $("#outputXML").append("<pre>"+pres.join("\n") + "</pre>");
   });
