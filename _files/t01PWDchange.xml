@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE task PUBLIC "-//OASIS//DTD DITA Task//EN" "task.dtd">
+<task id="t01PWDchangestudents">
+    <title>How to change your PID password</title>
+    <shortdesc id="t01shortdesc">Students, faculty and staff must change
+        their <b>PID</b> password before July 1, 2011. Users who have not changed their password by
+        July 1, 2011 will be not be able to log in until they have changed their password. The new
+        password will be valid for 12 months from the date of the change.</shortdesc>
+    <prolog>
+        <author>Virginia Tech Knowledge Base</author>
+        <copyright>
+            <copyryear year="2011"/>
+            <copyrholder>Virginia Tech</copyrholder>
+        </copyright>
+    </prolog>
+    <taskbody>
+        <context>
+        <p id="t01context">This article applies to those users who know their current <b>PID</b>
+                password and want to change it. If you have forgotten your password, call 4Help at
+                (540) 231-HELP (4357) to have it reset. For more information, see <xref
+                    href="http://answers.vt.edu/kb/entry/225/">Changing Your Forgotten PID
+                    Password</xref></p>
+        </context>
+        <steps>
+            <step id="t01s01">
+                <cmd>Go to the <xref href="http://my.vt.edu/">My VT</xref> website</cmd>
+            </step>
+            <step id="t01s02">
+                <cmd>Click the <i>Log On with CAS</i> button</cmd>
+            </step>
+            <step id="t01s03">
+                <cmd>In the <i>Username</i> text box, type your Virginia Tech PID</cmd>
+            </step>
+            <step id="t01s04">
+                <cmd>In the <i>Password</i> text box, type your current PID password</cmd>
+            </step>
+            <step id="t01s05">
+                <cmd>Click the <i>Login</i> button</cmd>
+                <info id="t01s05info"> If you want to be warned when you are being logged on to
+                    another Virginia Tech service automatically, place a check in the Warn before
+                    logging into other sites check box. You must place a check in this check box
+                    each time you log on to My VT</info>
+            </step>
+            <step id="t01s06">
+                <cmd>Select the <i>Personal Info</i> tab <image href="images/t01s06.jpg" placement="break"><alt>Screen shot of Personal Info tab</alt></image></cmd>
+                
+            </step>
+            <step id="t01s07">
+                <cmd>Under <i>Contact Info</i>, click the <i>Manage Your Profile</i> link <image href="images/t01s07.jpg" placement="break"><alt>Screen shot of Manage your profile link</alt></image></cmd>
+                
+            </step>
+            <step id="t01s08">
+                <cmd>Under <i>General Information</i>, click the <i>Change Password</i> link <image href="images/t01s08.jpg" placement="break"><alt>Screen shot of Change Password link</alt></image></cmd>
+                
+            </step>
+            <step id="t01s09">
+                <cmd>Create a new password</cmd>
+                <info id="t01s09info">Refer to <xref
+                        href="http://www.computing.vt.edu/accounts_and_access/pickinggoodpasswords.html"
+                        >Creating Strong Passwords</xref> for information on creating a strong
+                    password</info>
+            </step>
+            <step id="t01s10">
+                <cmd>In the <i>Current Password</i> text box, type the password you want to
+                    change</cmd>
+            </step>
+            <step id="t01s11">
+                <cmd>In the <i>New Password</i> text box, type your new password</cmd>
+            </step>
+            <step id="t01s12">
+                <cmd>In the <i>New Password Again</i> text box, retype your new password</cmd>
+            </step>
+            <step id="t01s13">
+                <cmd>Click the <i>Change Password</i> button <image href="images/t01s013.jpg" placement="break"><alt>Screen shot of Change Password button</alt></image></cmd>
+                
+            </step>
+            <step id="t01s14">
+                <cmd>Click the <i>Log Off</i> link <image href="images/t01s14.jpg" placement="break"><alt>Screen shot of Log Off link</alt></image></cmd>
+            </step>
+            <step id="t01s15">
+                <cmd>For increased security, close your browser.</cmd>
+                <info id="t01s15info">Since many online services, such as e-mail, My VT, and Hokie
+                    SPA, require using your PID to log on, you will need to use your new password
+                    when logging on to these services.</info>
+            </step>
+            
+            
+        </steps>
+        <postreq id="t01postreq1">If for any reason students have a <b>Hokies ID</b> or an <b>Oracle
+                ID</b>, then they will be required to change those passwords as well.</postreq>
+    </taskbody>
+</task>
