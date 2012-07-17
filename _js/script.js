@@ -253,8 +253,20 @@ $(document).ready(function(){
   $('#dropZone').bind('drop', handleFileSelect);
   $('#fileButton').change(handleFileSelect);
   
-  //make some tabs
+  //=======================================================================================
+  //
+  // Create infinite carousel of panel images 
+  // (http://jqueryfordesigners.com/jquery-infinite-carousel/)
+  //
+  //=======================================================================================
   $("#tabs").tabs();
+  console.log("here");
+  $.getJSON('_img/stock_panels.json',function(data) {
+    $.each(data, function(idx,val) {
+        $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
+    });
+  });
+
 
   function hideOriginalDita() {
     $('#original-dita').animate({
