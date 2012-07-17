@@ -277,7 +277,25 @@ $(document).ready(function(){
         $('#canvas_width').val(t.width);
         $('#canvas_height').val(t.height);
         $("#tool_docprops_save").click();
-        $('#fit_to_canvas').mouseup() 
+        $('#fit_to_canvas').mouseup()
+
+        if ($('svg#svgcontent g').find('#background').length > 0 ) {
+          $('svg#svgcontent g').find('#background').attr('xlink:href', $(this).attr('src'));
+        }
+        else {
+          $("#svgroot")[0].ownerDocument.createElementNS
+
+          var img = $("#svgroot")[0].ownerDocument.createElementNS('http://www.w3.org/2000/svg','image');
+          img.setAttributeNS(null,'height', t.height);
+          img.setAttributeNS(null,'width', t.width);
+          img.setAttributeNS('http://www.w3.org/1999/xlink','xlink:href', $(this).attr('src'));
+          img.setAttributeNS(null,'x','0');
+          img.setAttributeNS(null,'y','0');
+          img.setAttributeNS(null, 'visibility', 'visible');
+          img.setAttributeNS(null, 'id', 'background');
+
+          $('svg#svgcontent g title').after(img);
+        } 
       });
     });
   });
