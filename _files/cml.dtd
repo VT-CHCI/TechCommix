@@ -19,12 +19,15 @@
 
 <!ELEMENT firstname ( #PCDATA ) >
 
+<!ELEMENT img EMPTY >
+<!ATTLIST src CDATA #REQUIRED >
+
 <!ELEMENT last-built ( #PCDATA ) >
 
 <!ELEMENT narration ( #PCDATA ) >
 <!ATTLIST narration type NMTOKEN #REQUIRED >
 
-<!ELEMENT panel ( url, panel-desc ) >
+<!ELEMENT panel ( url?, panel-desc, img? ) >
 <!ATTLIST panel conceptref CDATA #IMPLIED >
 <!ATTLIST panel id NMTOKEN #IMPLIED >
 
@@ -38,9 +41,12 @@
 
 <!ELEMENT role ( #PCDATA ) >
 
-<!ELEMENT speech ( #PCDATA | emphasis | strong )* >
+<!ELEMENT span (#PCDATA) >
+<!ATTLIST class (shout | whisper | cold | wobbly | emphasis | strong | soft) #IMPLIED>
+
+<!ELEMENT speech ( #PCDATA | emphasis | strong | span)* >
 <!ATTLIST speech characterid NMTOKEN #REQUIRED >
-<!ATTLIST speech type NMTOKEN #IMPLIED >
+<!ATTLIST speech type (plot | humor | introduction | example | question | answer | explanation | demonstration | rationale | step | prereq | postreq | hazard-statement | result | context | choice | info) #REQUIRED >
 <!ATTLIST speech x NMTOKEN #IMPLIED >
 <!ATTLIST speech y NMTOKEN #IMPLIED >
 
