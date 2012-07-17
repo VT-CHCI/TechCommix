@@ -265,6 +265,16 @@ $(document).ready(function(){
     $.each(data, function(idx,val) {
         $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
     });
+    $('.infiniteCarousel img').each(function() {
+      $(this).click(function() {
+        var t = new Image();
+        t.src = $(this).attr("src")
+        $('#canvas_width').val(t.width);
+        $('#canvas_height').val(t.height);
+        $("#tool_docprops_save").click();
+        $('#fit_to_canvas').mouseup()
+      });
+    });
   });
 
 
