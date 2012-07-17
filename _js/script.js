@@ -262,6 +262,10 @@ $(document).ready(function(){
   $("#tabs").tabs();
   $('.infiniteCarousel .wrapper').width($('#workspace').width() - 13);
 
+  $(window).resize(function() {
+    $('.infiniteCarousel .wrapper').width($('#workspace').width() - 13);
+  });
+
   $.getJSON('_img/stock_panels.json',function(data) {
     $.each(data, function(idx,val) {
         $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
@@ -273,13 +277,9 @@ $(document).ready(function(){
         $('#canvas_width').val(t.width);
         $('#canvas_height').val(t.height);
         $("#tool_docprops_save").click();
-        $('#fit_to_canvas').mouseup()
+        $('#fit_to_canvas').mouseup() 
       });
     });
-  });
-
-  $(window).resize(function() {
-    $('.infiniteCarousel .wrapper').width($('#workspace').width() - 13);
   });
 
   function hideOriginalDita() {
