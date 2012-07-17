@@ -1,0 +1,64 @@
+<!ELEMENT action ( #PCDATA ) >
+
+<!ELEMENT bang EMPTY >
+
+<!ELEMENT character EMPTY >
+<!ATTLIST character id NMTOKEN #IMPLIED >
+<!ATTLIST character name NMTOKEN #REQUIRED >
+
+<!ELEMENT characters ( character+ ) >
+
+<!ELEMENT comic ( title, people, last-built, description, url, strip ) >
+<!ATTLIST comic version NMTOKEN #REQUIRED >
+
+<!ELEMENT description ( #PCDATA ) >
+
+<!ELEMENT email ( #PCDATA ) >
+
+<!ELEMENT emphasis ( #PCDATA ) >
+
+<!ELEMENT firstname ( #PCDATA ) >
+
+<!ELEMENT img EMPTY >
+<!ATTLIST src CDATA #REQUIRED >
+
+<!ELEMENT last-built ( #PCDATA ) >
+
+<!ELEMENT narration ( #PCDATA ) >
+<!ATTLIST narration type NMTOKEN #REQUIRED >
+
+<!ELEMENT panel ( url?, panel-desc, img? ) >
+<!ATTLIST panel conceptref CDATA #IMPLIED >
+<!ATTLIST panel id NMTOKEN #IMPLIED >
+
+<!ELEMENT panel-desc ( action | narration | speech )* >
+
+<!ELEMENT panels ( panel+ ) >
+
+<!ELEMENT people ( person+ ) >
+
+<!ELEMENT person ( firstname, surname+, email, url, role ) >
+
+<!ELEMENT role ( #PCDATA ) >
+
+<!ELEMENT span (#PCDATA) >
+<!ATTLIST class (shout | whisper | cold | wobbly | emphasis | strong | soft) #IMPLIED>
+
+<!ELEMENT speech ( #PCDATA | emphasis | strong | span)* >
+<!ATTLIST speech characterid NMTOKEN #REQUIRED >
+<!ATTLIST speech type (plot | humor | introduction | example | question | answer | explanation | demonstration | rationale | step | prereq | postreq | hazard-statement | result | context | choice | info) #REQUIRED >
+<!ATTLIST speech x NMTOKEN #IMPLIED >
+<!ATTLIST speech y NMTOKEN #IMPLIED >
+
+<!ELEMENT strip ( characters, panels ) >
+<!ATTLIST strip conceptref CDATA #IMPLIED >
+<!ATTLIST strip id NMTOKEN #IMPLIED >
+
+<!ELEMENT strong ( bang ) >
+
+<!ELEMENT surname ( #PCDATA ) >
+
+<!ELEMENT title ( #PCDATA ) >
+
+<!ELEMENT url ( #PCDATA ) >
+
