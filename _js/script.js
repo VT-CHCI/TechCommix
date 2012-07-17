@@ -260,7 +260,8 @@ $(document).ready(function(){
   //
   //=======================================================================================
   $("#tabs").tabs();
-  console.log("here");
+  $('.infiniteCarousel .wrapper').width($('#workspace').width() - 13);
+
   $.getJSON('_img/stock_panels.json',function(data) {
     $.each(data, function(idx,val) {
         $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
@@ -277,6 +278,9 @@ $(document).ready(function(){
     });
   });
 
+  $(window).resize(function() {
+    $('.infiniteCarousel .wrapper').width($('#workspace').width() - 13);
+  });
 
   function hideOriginalDita() {
     $('#original-dita').animate({
