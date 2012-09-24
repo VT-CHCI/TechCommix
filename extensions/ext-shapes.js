@@ -202,7 +202,7 @@ svgEditor.addExtension("shapes", function() {
 			// Do mouseup on parent element rather than each button
 			$('#shape_buttons').mouseup(function(evt) {
 				var btn = $(evt.target).closest('div.tool_button');
-				
+				// console.log(evt.target);
 				if(!btn.length) return;
 				
 				var copy = btn.children().clone();
@@ -212,15 +212,16 @@ svgEditor.addExtension("shapes", function() {
 					.attr('data-curopt', '#' + btn[0].id) // This sets the current mode
 					.mouseup();
 				canv.setMode(mode_id);
-				
+				// console.log("mode: "+mode_id);
 				cur_shape_id = btn[0].id.substr((mode_id+'_').length);
+				// console.log("shape: "+cur_shape_id);
 				current_d = cur_lib.data[cur_shape_id];
 				
 				$('.tools_flyout').fadeOut();
 
 			});
 
-// 			
+ 			
 			var shape_cats = $('<div id="shape_cats">');
 			
 			var cat_str = '';
@@ -260,6 +261,7 @@ svgEditor.addExtension("shapes", function() {
 	
 		},
 		mouseDown: function(opts) {
+			// console.log("mdown");
 			var mode = canv.getMode();
 			if(mode !== mode_id) return;
 			
@@ -267,6 +269,9 @@ svgEditor.addExtension("shapes", function() {
 			var x = start_x = opts.start_x;
 			var y = start_y = opts.start_y;
 			var cur_style = canv.getStyle();
+
+			// console.log(x);
+			// console.log(y);
 
 			cur_shape = canv.addSvgElementFromJson({
 				"element": "path",
@@ -288,7 +293,7 @@ svgEditor.addExtension("shapes", function() {
 	
 			cur_shape.setAttribute('transform', "translate(" + x + "," + y + ") scale(0.005) translate(" + -x + "," + -y + ")");
 			
-// 			console.time('b');
+
 			canv.recalculateDimensions(cur_shape);
 			
 			var tlist = canv.getTransformList(cur_shape);
@@ -301,6 +306,7 @@ svgEditor.addExtension("shapes", function() {
 			// current_d
 		},
 		mouseMove: function(opts) {
+			// console.log("mmove");
 			var mode = canv.getMode();
 			if(mode !== mode_id) return;
 			
@@ -309,6 +315,8 @@ svgEditor.addExtension("shapes", function() {
 			
 			var x = opts.mouse_x/zoom;
 			var y = opts.mouse_y/zoom;
+			// console.log(x);
+			// console.log(y);
 			
 			var tlist = canv.getTransformList(cur_shape),
 				box = cur_shape.getBBox(), 

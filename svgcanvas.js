@@ -2353,6 +2353,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 	//   and do nothing else
 	var mouseDown = function(evt)
 	{
+
+		// console.log(evt.pageX);
+		// console.log(evt.pageY);
 		if(canvas.spaceKey || evt.button === 1) return;
 		
 		var right_click = evt.button === 2;
@@ -2375,9 +2378,9 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 		}
 		
 		// This would seem to be unnecessary...
-// 		if(['select', 'resize'].indexOf(current_mode) == -1) {
-// 			setGradient();
-// 		}
+		// if(['select', 'resize'].indexOf(current_mode) == -1) {
+		// 	setGradient();
+		// }
 		
 		var x = mouse_x / current_zoom,
 			y = mouse_y / current_zoom,
@@ -2461,10 +2464,10 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 					}
 					r_start_x *= current_zoom;
 					r_start_y *= current_zoom;
-// 					console.log('p',[evt.pageX, evt.pageY]);					
-// 					console.log('c',[evt.clientX, evt.clientY]);	
-// 					console.log('o',[evt.offsetX, evt.offsetY]);	
-// 					console.log('s',[start_x, start_y]);
+					// 	console.log('p',[evt.pageX, evt.pageY]);					
+					// 	console.log('c',[evt.clientX, evt.clientY]);	
+					// 	console.log('o',[evt.offsetX, evt.offsetY]);	
+					// 	console.log('s',[start_x, start_y]);
 					
 					assignAttributes(rubberBox, {
 						'x': r_start_x,
@@ -2671,7 +2674,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						"opacity": cur_shape.opacity
 					}
 				});
-// 					newText.textContent = "text";
+					//	newText.textContent = "text";
 				break;
 			case "path":
 				// Fall through
@@ -2756,11 +2759,11 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						for (var i = 0; i < len; ++i) {
 							var selected = selectedElements[i];
 							if (selected == null) break;
-//							if (i==0) {
-//								var box = svgedit.utilities.getBBox(selected);
-// 									selectedBBoxes[i].x = box.x + dx;
-// 									selectedBBoxes[i].y = box.y + dy;
-//							}
+							//	if (i==0) {
+							//		var box = svgedit.utilities.getBBox(selected);
+							// 			selectedBBoxes[i].x = box.x + dx;
+							// 			selectedBBoxes[i].y = box.y + dy;
+							//	}
 
 							// update the dummy transform in our transform list
 							// to be a translate
@@ -3060,14 +3063,14 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 			case "textedit":
 				x *= current_zoom;
 				y *= current_zoom;
-// 					if(rubberBox && rubberBox.getAttribute('display') != 'none') {
-// 						assignAttributes(rubberBox, {
-// 							'x': Math.min(start_x,x),
-// 							'y': Math.min(start_y,y),
-// 							'width': Math.abs(x-start_x),
-// 							'height': Math.abs(y-start_y)
-// 						},100);
-// 					}
+					// if(rubberBox && rubberBox.getAttribute('display') != 'none') {
+					// 	assignAttributes(rubberBox, {
+					// 		'x': Math.min(start_x,x),
+					// 		'y': Math.min(start_y,y),
+					// 		'width': Math.abs(x-start_x),
+					// 		'height': Math.abs(y-start_y)
+					// 	},100);
+					// }
 				
 				textActions.mouseMove(mouse_x, mouse_y);
 				
@@ -3170,7 +3173,7 @@ var getMouseTarget = this.getMouseTarget = function(evt) {
 						selectorManager.requestSelector(selected).showGrips(true);
 						
 						// This shouldn't be necessary as it was done on mouseDown...
-// 							call("selected", [selected]);
+ 						//	call("selected", [selected]);
 					}
 					// always recalculate dimensions to strip off stray identity transforms
 					recalculateAllSelectedDimensions();

@@ -73,6 +73,8 @@ $(document).ready(function(){
       //set the text of the new text object
       $("#"+textId).text(ui.draggable.text());
       $("#"+textId).text(ui.draggable.text());
+      // console.log($("#"+textId).attr("x"));
+      // console.log($("#"+textId).attr("y"));
 
       // Put command back and highlight completed
       ui.draggable.addClass("dita-steps-used");
@@ -93,6 +95,8 @@ $(document).ready(function(){
       function() {
         $("#"+ui.draggable.attr("id")).removeClass("highlight");
       });
+
+      createSpeechBubble($("#"+textId)[0].getBBox());
 
       $('#output').trigger('refresh');
 
@@ -260,12 +264,11 @@ $(document).ready(function(){
   //
   //=======================================================================================
   $("#tabs").tabs();
-  console.log("here");
-  $.getJSON('_img/stock_panels.json',function(data) {
-    $.each(data, function(idx,val) {
-        $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
-    });
-  });
+  // $.getJSON('_img/stock_panels.json',function(data) {
+  //   $.each(data, function(idx,val) {
+  //       $("#tabs-1 ul").append('<li><img height="175" src="_img/' + val + '"></li>');
+  //   });
+  // });
 
 
   function hideOriginalDita() {
@@ -514,3 +517,39 @@ $(document).ready(function(){
   });
 
 });
+
+function createSpeechBubble(bbox) {
+  var adjBBox = bbox;
+
+  adjBBox.x += $("#canvasBackground").position().left;
+  adjBBox.y += $("#canvasBackground").position().top;
+  
+  // console.log(adjBBox);
+
+  var selectBubbleTool = jQuery.Event("mouseup");
+  selectBubbleTool.target = $("#shapelib_dialog_balloon_1>svg");
+  $('#shape_buttons').trigger(selectBubbleTool);
+
+  var downBubblePen = jQuery.Event("mousedown");
+  downBubblePen.pageX = adjBBox.x - 5;
+  downBubblePen.pageY = adjBBox.y;
+  // var moves = []
+  var moveBubblePen = jQuery.Event("mousemove");
+  var finishX = adjBBox.x+adjBBox.width;
+  var finishY = adjBBox.y+adjBBox.height + 30;
+  moveBubblePen.pageX = finishX;
+  moveBubblePen.pageY = finishY;
+
+  var upBubblePen = jQuery.Event("mouseup");
+  upBubblePen.pageX = finishX;
+  upBubblePen.pageY = finishY;
+
+  $("#svgcanvas").trigger(downBubblePen);
+  $("#svgcanvas").trigger(moveBubblePen);
+  $("#svgcanvas").trigger(upBubblePen); //race condition here
+
+  svgCanvas.moveUpDownSelected("Down");
+  // console.log(svgCanvas);
+
+  $("#tool_select").click()
+}

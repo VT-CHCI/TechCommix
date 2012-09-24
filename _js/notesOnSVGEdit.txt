@@ -9,34 +9,58 @@ case "text":
 //TGM REMOVE
 svgcanvas 3789 toEditMode
 
-can click text button and the svg <text> elem is not yet created
-
-it DNE on mouseDown!
-<-- ? CREATED at svgcanvas 2658
-it IS created BEFORE mouseup 3113.
-svgCanvas.addSvgElementFromJson({
-	"element": "text",
-	"curStyles": true,
-	"attr": {
-		"x": 200,
-		"y": 200,
-		"id": svgCanvas.getNextId(),
-		"fill": "#000000",
-		"stroke-width": 0,
-		"font-size": 24,
-		"font-family": "serif",
-		"text-anchor": "middle",
-		"xml:space": "preserve",
-		"opacity": 1
-	}
-});
 
 
-<text id="svg_1" fill="#000000" stroke="#000000" stroke-width="0" style="pointer-events:inherit" x="112" y="369.73333740234375" font-size="24" font-family="serif" text-anchor="middle" xml:space="preserve" fill-opacity="1" stroke-opacity="1">
+// TGM making speech bubble automagically
+ext-shapes.js::203:            $('#shape_buttons').mouseup(
 
-        #svgcanvas svg *{cursor:move;pointer-events:all}, #svgcanvas svg{cursor:default}                Layer 1        
+var e = jQuery.Event("mouseup");
+e.target = $("#shapelib_dialog_balloon_1>svg");
+$('#shape_buttons').trigger(e);
+
+beginning of mousedown call chain in svgcanvas:2700
 
 
-for putting in ordering and improving the spokenBY:
-attr_changer is the css class applied ot the input fields in the original svg-edit these things have a change event to update their val.
-in svg-editor.js, see: $('.attr_changer').change(function() { 
+var ext_result = runExtensions("mouseUp", {
+			event: evt,
+			mouse_x: mouse_x,
+			mouse_y: mouse_y
+		}, true);
+
+runExtensions("mouseMove", {
+			event: evt,
+			mouse_x: mouse_x,
+			mouse_y: mouse_y,
+			selected: selected
+		});
+
+var ext_result = runExtensions("mouseDown", {
+			event: evt,
+			start_x: start_x,
+			start_y: start_y,
+			selectedElements: selectedElements
+		}, true);
+
+
+
+var selectBubbleTool = jQuery.Event("mouseup");
+selectBubbleTool.target = $("#shapelib_dialog_balloon_1>svg");
+$('#shape_buttons').trigger(selectBubbleTool);
+
+var downBubblePen = jQuery.Event("mousedown");
+downBubblePen.pageX = 488;
+downBubblePen.pageY = 150;
+// var moves = []
+var moveBubblePen = jQuery.Event("mousemove");
+moveBubblePen.pageX = 588;
+moveBubblePen.pageY = 225;
+
+var upBubblePen = jQuery.Event("mouseup");
+upBubblePen.pageX = 688;
+upBubblePen.pageY = 300;
+
+$("#svgcanvas").trigger(downBubblePen);
+$("#svgcanvas").trigger(moveBubblePen);
+$("#svgcanvas").trigger(upBubblePen);
+
+
