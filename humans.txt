@@ -3,9 +3,11 @@
 
 
 /* TEAM */
-  Developer: Michael Stewart
-  Developer: Siroberto Scerbo
-  Team Lead: Manuel Perez-Quinones
+  Member: Michael Stewart
+  Member: Siroberto Scerbo
+  Member: Tim Lockridge
+  Member: Carlos Evia
+  Member: Manuel Perez-Quinones
   Site: 
   Twitter:
   Location:
