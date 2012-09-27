@@ -72,7 +72,7 @@ $(document).ready(function(){
 
       //set the text of the new text object
       $("#"+textId).text(ui.draggable.text());
-      $("#"+textId).text(ui.draggable.text());
+      
       // console.log($("#"+textId).attr("x"));
       // console.log($("#"+textId).attr("y"));
 
