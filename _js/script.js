@@ -47,6 +47,7 @@ $(document).ready(function(){
       // weird constants to help position text
       var empiricalLeft = 0;
       var empiricalTop = 123;
+      var charCount = 25; //characters per line
 
       //add a new text object to the canvas
       var textId = svgCanvas.getNextId();
@@ -70,9 +71,25 @@ $(document).ready(function(){
         }
       });      
 
-      //set the text of the new text object
-      $("#"+textId).text(ui.draggable.text());
-      
+      var words = ui.draggable.text().split(" ");
+
+      var wordCount = 0;
+      var line = "";
+
+      $.each(words, function() {
+        if ((wordCount + this.length - 1) > charCount) {
+          $("#"+textId).append(createTspan(ui.draggable.position().left-$("#canvasBackground").position().left+ui.draggable.width()/2+empiricalLeft, line.slice(0, -1)));
+          wordCount = this.length + 1;
+          line = this + " ";
+          if (this == $(words).last()[0]) {
+            $("#"+textId).append(createTspan(ui.draggable.position().left-$("#canvasBackground").position().left+ui.draggable.width()/2+empiricalLeft, line.slice(0, -1)));
+          }
+        }else {
+          line = line + this + " ";
+          wordCount = wordCount + this.length + 1;  //1 is to add for white space after word
+        }
+      });
+
       // console.log($("#"+textId).attr("x"));
       // console.log($("#"+textId).attr("y"));
 
@@ -586,3 +603,13 @@ function createSpeechBubble(bbox) {
 
   $("#tool_select").click()
 }
+
+function createTspan(xVal,text) {
+  var tspan_element = document.createElementNS("http://www.w3.org/2000/svg", "tspan");       // Create new tspan element
+  tspan_element.setAttributeNS(null, "x", xVal);
+  tspan_element.setAttributeNS(null, "dy", "1.2em");
+  tspan_element.textContent=text;
+
+  return tspan_element;
+}
+
